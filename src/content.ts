@@ -148,8 +148,9 @@ export const sourcing = {
   eyebrow: 'Sourcing service',
   title: 'Your buying team in China.',
   lede:
-    'For businesses that want to buy in China without the local practices or ' +
-    'the travel. We act as your purchasing office.',
+    'Name the product you need - a photo, a sample, a reference - and we find ' +
+    'the factory, negotiate at source, inspect and ship it, whether or not it ' +
+    'is in our catalogs. Your purchasing office in China, without the travel.',
   items: [
     { h: 'Reliable supplier search', p: 'We select factories on capability, quality and stability - not on a marketplace listing.' },
     { h: 'Price negotiation', p: 'We negotiate directly with the factory, at source prices, with no middleman margin.' },
@@ -295,6 +296,14 @@ export const faq = {
     {
       q: 'How does ordering work?',
       a: `Select products on our online platform, we confirm the list and the volume, you pay, and production and packing start immediately. See the ${n('process.steps')}-step process above.`,
+    },
+    {
+      q: 'Can you find a product that is not in your catalogs?',
+      a: 'Yes, and it is what we have always done. Send a photo, a sample or a ' +
+         'reference with the quantity you need: we find the factory, negotiate at ' +
+         'source, inspect the goods and ship them, on their own or consolidated ' +
+         'with the rest of your order. We come back with the factory price, the ' +
+         'minimum quantity and the lead time.',
     },
     {
       q: 'Are you on Alibaba?',
