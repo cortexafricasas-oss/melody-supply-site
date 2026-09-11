@@ -316,13 +316,6 @@ export default function App() {
         </section>
       </main>
 
-      {/* Barre d'action permanente sur mobile : l'acheteur ne doit jamais
-          avoir a chercher comment nous joindre. */}
-      <div className="sticky-cta">
-        <a className="btn" href="#contact">Get a quote</a>
-        <a className="btn btn--wa" href={WHATSAPP_LINK} target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-
       <Ask />
 
       <footer className="foot wrap">

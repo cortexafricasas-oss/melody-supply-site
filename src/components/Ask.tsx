@@ -14,14 +14,7 @@ export function Ask() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
-  const [msgs, setMsgs] = useState<Msg[]>([
-    {
-      role: 'bot',
-      text:
-        'Ask about products, minimum order, shipping or opening a store. ' +
-        'I answer from this page only — for anything else, email melodychina0505@gmail.com.',
-    },
-  ]);
+  const [msgs, setMsgs] = useState<Msg[]>([]);
   const logRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,12 +66,27 @@ export function Ask() {
         className="ask__open"
         aria-expanded={open}
         aria-controls="ask-panel"
+        aria-label={open ? 'Close the assistant' : 'Ask a question'}
+        title={open ? 'Close' : 'Ask a question'}
         onClick={() => setOpen((v) => !v)}
       >
-        {open ? 'Close' : 'Ask a question'}
+        {open ? (
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path d="M21 12a8 8 0 1 1-3.2-6.4" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            <path d="M4 20l1.6-3.6" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            <circle cx="9" cy="12" r="1.25" fill="currentColor" />
+            <circle cx="13" cy="12" r="1.25" fill="currentColor" />
+            <circle cx="17" cy="12" r="1.25" fill="currentColor" />
+          </svg>
+        )}
       </button>
 
       <div id="ask-panel" className={open ? 'ask is-open' : 'ask'} hidden={!open}>
+        {(msgs.length > 0 || busy) && (
         <div className="ask__log" ref={logRef} aria-live="polite">
           {msgs.map((m, i) => (
             <p key={i} className={m.role === 'you' ? 'ask__you' : 'ask__bot'}>
@@ -87,6 +95,7 @@ export function Ask() {
           ))}
           {busy && <p className="ask__bot ask__typing">…</p>}
         </div>
+        )}
 
         <form className="ask__form" onSubmit={send}>
           <label className="sr-only" htmlFor="ask-input">Your question</label>
@@ -95,7 +104,7 @@ export function Ask() {
             value={q}
             maxLength={MAX}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="What is the minimum order?"
+            placeholder="Ask about MOQ, shipping, opening a store…"
             autoComplete="off"
           />
           <button type="submit" disabled={busy || !q.trim()}>
@@ -104,8 +113,7 @@ export function Ask() {
         </form>
 
         <p className="ask__note">
-          Automated assistant. Answers come from this page only and are not a
-          commercial commitment.
+          Automated assistant — answers from this page only, not a commercial commitment.
         </p>
       </div>
     </>
