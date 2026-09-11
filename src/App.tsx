@@ -7,6 +7,7 @@ import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
 import { Ask } from './components/Ask';
 import { QuoteForm } from './components/QuoteForm';
+import { Icon } from './components/Icon';
 
 const BASE = import.meta.env.BASE_URL;
 const img = (f: string) => `${BASE}images/${f}`;
@@ -283,20 +284,6 @@ export default function App() {
               {contact.offers.map((o) => <li key={o}>{o}</li>)}
             </ul>
             <QuoteForm />
-            <dl className="channels">
-              {contact.channels.map((c) => (
-                <div key={c.label}>
-                  <dt>{c.label}</dt>
-                  <dd>
-                    {c.label === 'WhatsApp' && <a href={WHATSAPP_LINK} target="_blank" rel="noopener">{c.value}</a>}
-                    {c.label === 'Phone' && <a href={PHONE_LINK}>{c.value}</a>}
-                    {c.label === 'Email' && <a href={`mailto:${CONTACT_EMAIL}`}>{c.value}</a>}
-                    {c.label === 'WeChat' && <span>{c.value}</span>}
-                    {c.note && <em> — {c.note}</em>}
-                  </dd>
-                </div>
-              ))}
-            </dl>
             <p className="quote__reassure">{contact.reassurance}</p>
           </div>
         </section>
@@ -304,17 +291,43 @@ export default function App() {
 
       <Ask />
 
-      <footer className="foot wrap">
-        <div className="foot__row">
-          <strong>{foot.company}</strong>
-          <span>{foot.tagline}</span>
-          <a href={`mailto:${foot.email}`}>{foot.email}</a>
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener">WhatsApp {WHATSAPP_NUMBER}</a>
-          <a href={PHONE_LINK}>{PHONE_NUMBER}</a>
-          <span>WeChat {WECHAT_ID}</span>
-          {foot.socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
-          ))}
+      <footer className="foot">
+        <div className="wrap">
+          <div className="foot__brand">
+            <strong>{foot.company}</strong>
+            <span>{foot.tagline}</span>
+          </div>
+
+          <ul className="foot__reach">
+            {foot.reach.map((r) => (
+              <li key={r.label}>
+                <span className="foot__ico" aria-hidden="true">
+                  <Icon name={r.icon as never} />
+                </span>
+                <span className="foot__txt">
+                  <b>{r.label}</b>
+                  {r.href ? (
+                    <a href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined}
+                       rel={r.href.startsWith('http') ? 'noopener' : undefined}>{r.value}</a>
+                  ) : (
+                    <span className="foot__plain">{r.value}</span>
+                  )}
+                  {r.note && <em>{r.note}</em>}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <ul className="foot__social">
+            {foot.socials.map((sn) => (
+              <li key={sn.label}>
+                <a href={sn.href} target="_blank" rel="noopener noreferrer"
+                   aria-label={sn.label} title={sn.label}>
+                  <Icon name={sn.icon as never} size={22} />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </footer>
     </>

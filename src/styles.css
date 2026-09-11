@@ -126,17 +126,51 @@ a { color: inherit; }
 .faq h3 { font-size: var(--step-1); }
 .faq p { margin-top: 0.45rem; }
 
-/* ---------- Pied ---------- */
+/* ---------- Pied : coordonnees et reseaux ---------- */
 
-.foot { border-top: 1px solid #383B33; padding-block: 2.5rem; font-size: var(--step--1); color: var(--text-dim); }
-.foot__row { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; align-items: center; }
-.foot a, .faq a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding-inline: 2px; }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .route::before { animation: none; transform: scaleX(1); }
-  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+.foot {
+  border-top: 1px solid #383B33; padding-block: 3rem;
+  font-size: var(--step--1); color: var(--text-dim);
 }
+.foot__brand { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
+.foot__brand strong { color: var(--paper); font-size: var(--step-1); }
+
+.foot__reach {
+  margin: 2rem 0 0; padding: 0; list-style: none;
+  display: grid; gap: 1rem;
+}
+@media (min-width: 44rem) { .foot__reach { grid-template-columns: 1fr 1fr; gap: 1.1rem 2.5rem; } }
+
+.foot__reach li { display: flex; align-items: flex-start; gap: 0.75rem; }
+
+.foot__ico {
+  flex: none; width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  background: #2F332B; color: var(--signal); border-radius: 8px;
+}
+
+.foot__txt { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+.foot__txt b { color: var(--paper); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.foot__txt a, .foot__plain {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--paper); font-weight: 700; word-break: break-word;
+}
+.foot__txt a:hover { color: var(--signal); }
+.foot__txt em { font-style: normal; font-size: 0.72rem; color: var(--text-dim); margin-top: -0.4rem; }
+
+/* Reseaux : une icone cliquable par application, rien d'autre. */
+.foot__social {
+  margin: 2.25rem 0 0; padding: 0; list-style: none;
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+}
+.foot__social a {
+  display: flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px;
+  background: #2F332B; color: var(--paper);
+  border-radius: 50%; transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.foot__social a:hover { background: var(--signal); color: var(--ink); transform: translateY(-2px); }
+.foot__social a:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
 
 /* ---------- Menu ---------- */
 

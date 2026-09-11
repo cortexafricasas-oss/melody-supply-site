@@ -284,25 +284,22 @@ export const contact = {
     'Your own store brand or product brand',
   ],
   cta: 'Become our client',
-  ctaWhatsapp: 'Chat on WhatsApp',
-  channels: [
-    { label: 'WhatsApp', value: WHATSAPP_NUMBER, note: 'French, English, Spanish, Arabic' },
-    { label: 'Phone', value: PHONE_NUMBER, note: '' },
-    { label: 'WeChat', value: WECHAT_ID, note: '' },
-    { label: 'Email', value: CONTACT_EMAIL, note: '' },
-  ],
   reassurance: `A multilingual team, ${n('years.experience')} years of experience, clients across ${n('continents')} continents.`,
 };
 
 export const foot = {
   company: 'Melody Supply',
   tagline: 'Easy sourcing from China',
-  email: CONTACT_EMAIL,
-  whatsapp: WHATSAPP_NUMBER,
-  wechat: WECHAT_ID,
+  reach: [
+    { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'French, English, Spanish, Arabic' },
+    { icon: 'phone', label: 'Phone', value: PHONE_NUMBER, href: PHONE_LINK, note: '' },
+    { icon: 'wechat', label: 'WeChat', value: WECHAT_ID, href: '', note: '' },
+    { icon: 'mail', label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, note: '' },
+  ],
   socials: [
-    { label: 'Facebook', href: 'https://www.facebook.com/share/15Li2a5L29V/?mibextid=wwXIfr' },
-    { label: 'Instagram', href: 'https://www.instagram.com/melodie_fournisseur_chinois' },
-    { label: 'TikTok', href: 'https://www.tiktok.com/@mlodie.fournisseur' },
+    { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/share/15Li2a5L29V/?mibextid=wwXIfr' },
+    { icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/melodie_fournisseur_chinois' },
+    { icon: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@mlodie.fournisseur' },
+    { icon: 'whatsapp', label: 'WhatsApp', href: WHATSAPP_LINK },
   ],
 };
