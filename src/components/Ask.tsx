@@ -109,7 +109,11 @@ export function Ask() {
               {m.text}
             </p>
           ))}
-          {busy && <p className="ask__bot ask__typing">…</p>}
+          {busy && (
+            <p className="ask__bot ask__typing" aria-label="Typing">
+              <i /><i /><i />
+            </p>
+          )}
         </div>
         )}
 
@@ -123,8 +127,11 @@ export function Ask() {
             placeholder="Ask about MOQ, shipping, opening a store…"
             autoComplete="off"
           />
-          <button type="submit" disabled={busy || !q.trim()}>
-            {busy ? '…' : 'Send'}
+          <button type="submit" disabled={busy || !q.trim()} aria-label="Send">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" strokeWidth="2.6"
+                    fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
         </form>
 
