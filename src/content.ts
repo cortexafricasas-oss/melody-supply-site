@@ -1,137 +1,242 @@
 import facts from './facts.json';
-import { formatNumber } from './lib/format';
 
-/** Valeur d'un fait du registre. Aucun chiffre n'est écrit à la main (règle d'or n°7). */
+/** Valeur d'un fait du registre. Aucun chiffre ecrit a la main (regle d'or n7). */
 export function fact(id: string): number {
   const found = facts.facts.find((f) => f.id === id);
   if (!found) throw new Error(`Fait manquant : ${id}`);
   return found.value;
 }
 
-/** Format anglais (en-US), le site s'adresse au marché américain. */
 const n = (id: string) => new Intl.NumberFormat('en-US').format(fact(id));
+const eur = (id: string) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: fact(id) < 10 ? 2 : 0,
+  }).format(fact(id));
 
-export { formatNumber };
-
-export const QUOTE_MAIL =
+export const CONTACT_MAIL =
   'mailto:melodychina0505@gmail.com' +
-  '?subject=' + encodeURIComponent('Quote request — Melody Supply') +
+  '?subject=' + encodeURIComponent('Quote request - Melody Supply') +
   '&body=' + encodeURIComponent(
-    'Store type (dollar store, variety, supermarket):\n\n' +
-    'Number of stores:\n\n' +
+    'Store type (dollar store, discount, bazaar, supermarket, online):\n\n' +
+    'Floor area (sqm):\n\n' +
     'Destination country / port:\n\n' +
-    'What you need (sourcing only, or full store setup):\n\n' +
+    'What you need (products only, sourcing, or full store setup):\n\n' +
     'Target opening date:\n',
   );
 
 export const nav = {
-  logoAlt: 'Melody Supply — easy sourcing from China',
+  logoAlt: 'Melody Supply - easy sourcing from China',
+  links: [
+    { label: 'Products', href: '#products' },
+    { label: 'Sourcing', href: '#sourcing' },
+    { label: 'Process', href: '#process' },
+    { label: 'Services', href: '#services' },
+    { label: 'Why us', href: '#why' },
+    { label: 'FAQ', href: '#faq' },
+  ],
   cta: 'Get a quote',
 };
 
 export const hero = {
   title: ['Open a dollar store.', 'We supply every shelf.'],
   lede:
-    'Melody Supply sources direct from Chinese factories and sets up the whole ' +
-    'store — assortment, fixtures, shelving, restock. Not just a container.',
+    `Direct from Chinese factories: ${n('catalog.items')}+ products across ` +
+    `${n('categories.count')} categories, custom shelving, store layout and full ` +
+    'equipment. One supplier, one container.',
   stats: [
-    { value: `${n('catalog.items')}+`, label: 'SKUs in catalogue' },
-    { value: `${n('years.experience')} years`, label: 'in Chinese supply chain' },
-    { value: `${n('clients.count')}+`, label: 'retailers served' },
+    { v: `${n('catalog.items')}+`, l: 'products in catalogue' },
+    { v: `${n('categories.count')}`, l: 'product categories' },
+    { v: `${n('years.experience')} yrs`, l: 'in the Chinese supply chain' },
+    { v: `${n('warehouse.sqm')} sqm`, l: 'of own warehousing' },
   ],
   cta: 'Get a quote',
-  ctaGhost: 'See how it works',
+  ctaGhost: `See the ${n('process.steps')}-step process`,
 };
 
-export const route = {
-  eyebrow: 'Factory to shelf',
-  title: 'Five steps. One supplier.',
+export const products = {
+  eyebrow: 'One-stop supply',
+  title: `${n('categories.count')} categories. One container.`,
   lede:
-    'Most sourcing agents stop at the port. We keep going until the shelves are ' +
-    'full and the store is trading.',
+    `Two product lines: a one-euro line sourced between ${eur('unit.cost.min')} and ` +
+    `${eur('unit.cost.max')} per unit, and a wider line at mixed price points. Mix freely ` +
+    `across categories - the only condition is a total order of ${eur('order.minimum')}, ` +
+    'shipping excluded.',
+  categories: [
+    'Bathroom', 'Kitchen', 'Toys', 'Beauty', 'Stationery', 'Jewellery',
+    'Electronics', 'Ceramics', 'Plastics', 'Glass', 'Enamel', 'Stainless steel',
+    'Bamboo & wood', 'Knitted cotton', 'Household paper', 'Hardware',
+    'Hygiene & cleaning', 'Everyday essentials', 'Handcraft', 'Pendants',
+    'Headwear', 'Craft & party', 'New arrivals',
+  ],
+  points: [
+    {
+      h: 'Ultra-flexible MOQ',
+      p: `Order any item in small quantities and build your own mix. One condition: ${eur('order.minimum')} total order value, shipping excluded.`,
+    },
+    {
+      h: 'Real stock, fast dispatch',
+      p: `Our own ${n('warehouse.sqm')} sqm of warehousing keeps products available at stable prices and orders moving quickly.`,
+    },
+    {
+      h: 'Factory pricing, checked quality',
+      p: 'We buy at source and inspect in-house before anything is packed.',
+    },
+    {
+      h: 'Everything in one container',
+      p: 'Products, shelving and store equipment consolidated into a single shipment.',
+    },
+  ],
+  included: [
+    'Best-seller guidance',
+    'In-house quality inspection',
+    'Photos and video before shipping',
+    'Barcode printing',
+    'Multi-category consolidation',
+    'Freight assistance',
+  ],
+};
+
+export const sourcing = {
+  eyebrow: 'Sourcing service',
+  title: 'Your buying team in China.',
+  lede:
+    'For businesses that want to buy in China without the language barrier, the ' +
+    'local practices or the travel. We act as your purchasing office.',
+  items: [
+    { h: 'Reliable supplier search', p: 'We select factories on capability, quality and stability - not on a marketplace listing.' },
+    { h: 'Price negotiation', p: 'We negotiate directly with the factory, at source prices, with no middleman margin.' },
+    { h: 'Full project management', p: 'Follow-up, inspection, consolidation and a single shipment for the whole order.' },
+  ],
+  forWhom: {
+    h: 'Built for',
+    list: [
+      'Physical stores - discount, bazaar, dollar store',
+      'Online sellers - Amazon FBA, Shopify, Jumia, Shopee, MercadoLibre',
+      'Businesses looking for new reliable suppliers',
+      'Private label and own-brand development',
+    ],
+  },
+};
+
+export const process = {
+  eyebrow: 'Opening a store',
+  title: `${n('process.steps')} steps, from location to opening.`,
+  lede:
+    'A standardised process: clear, fast and transparent. One dedicated team ' +
+    'follows you from the site plan to the goods arriving at your warehouse.',
   steps: [
-    {
-      n: '1', h: 'Source',
-      p: 'Direct factory access, no middlemen. We negotiate, inspect and consolidate.',
-      img: 'step-source.webp',
-      alt: 'Rows of pallets wrapped in stretch film in a warehouse, receding in orderly lines',
-    },
-    {
-      n: '2', h: 'Assort',
-      p: 'A category plan built for your floor size, your price points and your local demand.',
-      img: 'step-restock.webp',
-      alt: 'Neat stacks of plain cardboard boxes squared off on a wooden pallet',
-    },
-    {
-      n: '3', h: 'Fixture',
-      p: 'Custom shelving and layout design, manufactured and shipped with the goods.',
-      img: 'step-fixture.webp',
-      alt: 'Newly installed empty steel shelving in a bare retail space with a yellow floor line',
-    },
-    {
-      n: '4', h: 'Ship',
-      p: 'Consolidated loading, export documents and delivery to your port or door.',
-      img: 'step-ship.webp',
-      alt: 'Concrete loading dock with a half-open roller door and a yellow safety line',
-    },
-    {
-      n: '5', h: 'Restock',
-      p: 'Reorder what sells through an online selection platform. Same catalogue, same prices.',
-      img: 'step-source.webp',
-      alt: 'Warehouse aisle stocked with cartons ready for reorder',
-    },
+    { h: 'Site validation', p: 'You pick a location in your country and send us the floor plan and photos of the surroundings.' },
+    { h: 'Client account', p: 'After a deposit - fully deductible from the final order - we open your platform access and assign your team.' },
+    { h: 'Store design', p: 'Shelf layout and dimensions, promotional space, assortment planning, trolleys, checkouts and stock system.' },
+    { h: 'Final validation', p: 'You confirm the product list, the custom shelving, the total weight and the overall volume.' },
+    { h: 'Production & packing', p: 'On payment, product preparation and custom shelf manufacturing start immediately.' },
+    { h: 'Freight coordination', p: 'Partner freight forwarders for export, sea freight and optional import customs. We assist throughout.' },
+    { h: 'Shipping & receipt', p: 'Handover to your carrier. On arrival you collect locally and start fitting out the store.' },
   ],
 };
 
 export const services = {
   eyebrow: 'Beyond supply',
-  title: 'What a sourcing agent will not do for you.',
+  title: 'From layout to a fully working store.',
+  lede:
+    'What a sourcing agent will not do for you: we design and equip the sales ' +
+    'floor, not just fill a container.',
   items: [
-    { h: 'Store concept design', p: 'Floor plan, customer flow and category zoning, drawn before a single box ships.' },
-    { h: 'Strategic assortment plan', p: 'Which SKUs, at which price points, in which quantities — matched to your market.' },
-    { h: 'Custom shelving manufacture', p: 'Gondolas, end caps and display units built to your dimensions in our partner factories.' },
-    { h: 'Full store equipment', p: 'Counters, signage frames, baskets, lighting — the store arrives complete.' },
-    { h: 'Online selection platform', p: 'Browse the catalogue, build your order and reorder what sells, without a sales call.' },
-    { h: 'Product development', p: 'Private label and packaging development when an off-the-shelf SKU is not enough.' },
+    {
+      h: 'Product selection & assortment plan',
+      p: `Access ${n('catalog.items')}+ products on our platform, with expert guidance to build a balanced, profitable mix for your market. Merchandising advice and recommendations based on international best-sellers.`,
+    },
+    {
+      h: 'Custom layout & floor plan',
+      p: `A 2D plan optimised for customer flow and key zones - free from ${n('layout.minimum.sqm')} sqm. Detailed drawings for wall and centre shelving.`,
+    },
+    {
+      h: 'Custom shelf manufacturing',
+      p: 'Gondolas, end caps and display units built to your dimensions in our partner factories, shipped with the goods.',
+    },
+    {
+      h: 'Full store equipment',
+      p: 'Counters, signage frames, baskets, trolleys, checkout and stock systems - the store arrives complete.',
+    },
   ],
 };
 
-export const figures = {
-  eyebrow: 'Track record',
-  title: 'The numbers behind the shelves.',
+export const why = {
+  eyebrow: 'Why Melody',
+  title: `${n('advantages.count')} reasons buyers stay.`,
   items: [
-    { value: `${n('catalog.items')}+`, label: 'first-necessity SKUs available to order' },
-    { value: `${n('years.experience')}`, label: 'years operating inside the Chinese supply chain' },
-    { value: `${n('clients.count')}+`, label: 'retailers supplied, from single stores to chains' },
+    { h: 'Source pricing', p: 'Factory prices, no marketplace margin stacked on top.' },
+    { h: 'Flexible orders', p: 'Small quantities per item, mixed freely across categories.' },
+    { h: 'Online selection', p: 'Browse the catalogue and build your order without a sales call.' },
+    { h: 'Renewed best-sellers', p: 'New arrivals rotate constantly, so the shelves stay worth revisiting.' },
+    { h: 'Complete support', p: 'From assortment planning to freight, one team follows the whole order.' },
+    { h: 'Smart systems', p: 'Stock and checkout systems designed for a small retail team.' },
+    { h: 'Visual support', p: 'Photos and video of the goods before they ship.' },
+    { h: 'Grouped freight', p: 'Multi-category consolidation into a single container.' },
   ],
-  note:
-    'Figures declared by Melody Supply. Client references and named testimonials ' +
-    'are available on request.',
+};
+
+export const model = {
+  eyebrow: 'The format',
+  title: 'Why one-euro stores keep winning.',
+  lede:
+    'In an uncertain economy, low-price retail wins on a simple promise: small ' +
+    'prices, useful products, a pleasant store.',
+  items: [
+    { h: 'Modern, attractive design', p: 'Bright, clear stores that encourage impulse buying and a pleasant visit.' },
+    { h: 'Unbeatable prices', p: `Everything between ${eur('retail.price.min')} and ${eur('retail.price.max')}, which keeps buying simple and margins high.` },
+    { h: 'Everyday products', p: 'Essentials selected to meet daily needs, which is what brings customers back.' },
+    { h: 'Frequent renewal', p: 'Regular new arrivals keep variety and footfall steady through the year.' },
+  ],
 };
 
 export const faq = {
   eyebrow: 'Before you ask',
   title: 'The questions buyers actually ask.',
   items: [
-    { q: 'What is the minimum order?',
-      a: 'It depends on the assortment and the destination. Tell us your store size and we will come back with a realistic first order.' },
-    { q: 'Do you ship to the United States?',
-      a: 'Yes, and internationally. We consolidate and handle export documents; you choose port or door delivery.' },
-    { q: 'Can you supply shelving as well as goods?',
-      a: 'Yes. Shelving and fixtures are manufactured to your layout and shipped with the goods, in the same consolidation.' },
-    { q: 'Do you do private label?',
-      a: 'Yes, including packaging development. It lengthens lead times, so we plan it from the first order.' },
-    { q: 'How do I reorder?',
-      a: 'Through the online selection platform. Same catalogue, same pricing, no sales call needed.' },
+    {
+      q: 'What is the minimum order?',
+      a: `${eur('order.minimum')} in goods, shipping excluded. Within that, mix any items and any categories freely - there is no per-item minimum.`,
+    },
+    {
+      q: 'How does shipping work?',
+      a: 'We consolidate your whole order into one shipment and propose partner freight forwarders for export, sea freight and optional import customs. You choose the carrier; we assist with the paperwork.',
+    },
+    {
+      q: 'How does ordering work?',
+      a: `Select products on our online platform, we confirm the list and the volume, you pay, and production and packing start immediately. See the ${n('process.steps')}-step process above.`,
+    },
+    {
+      q: 'Are you on Alibaba?',
+      a: 'We work directly, not through marketplaces. That is what removes the intermediate margin and lets us inspect and consolidate in-house.',
+    },
+    {
+      q: `Are the ${eur('unit.cost.min')} product prices real?`,
+      a: `Yes, for the one-euro product line, sourced between ${eur('unit.cost.min')} and ${eur('unit.cost.max')} per unit. The wider line sits at mixed price points.`,
+    },
+    {
+      q: 'Do you supply shelving as well as goods?',
+      a: `Yes. Shelving and fixtures are manufactured to your layout and shipped with the goods. The 2D layout plan is free from ${n('layout.minimum.sqm')} sqm.`,
+    },
   ],
 };
 
-export const quote = {
+export const contact = {
+  eyebrow: 'Get started',
   title: 'Tell us what you are opening.',
   lede:
-    'Store type, floor size, destination port, opening date. We come back with an ' +
-    'assortment plan and a landed cost.',
+    'Store type, floor area, destination port, opening date. We reply by email ' +
+    `within ${n('reply.days.min')} to ${n('reply.days.max')} working days with an assortment plan and a landed cost.`,
+  offers: [
+    'Full service for opening your store',
+    'Direct, grouped supply across product categories',
+    'Product search beyond the catalogue',
+    'Your own store brand or product brand',
+  ],
   cta: 'Get a quote',
+  reassurance: `A multilingual team, ${n('years.experience')} years of experience, clients across ${n('continents')} continents.`,
 };
 
 export const foot = {

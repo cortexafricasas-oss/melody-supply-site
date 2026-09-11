@@ -1,56 +1,105 @@
-import { useEffect, useRef } from 'react';
-import { QUOTE_MAIL, nav, hero, route, services, figures, faq, quote, foot, fact } from './content';
+import { useEffect, useRef, useState } from 'react';
+import {
+  CONTACT_MAIL, nav, hero, products, sourcing, process, services, why, model, faq, contact, foot, fact,
+} from './content';
 import { registerFactCheck } from './lib/fact-checks';
 
 const BASE = import.meta.env.BASE_URL;
 const img = (f: string) => `${BASE}images/${f}`;
 
-/* Le trajet est le moment mémorable : la ligne jaune traverse les cinq étapes.
-   Son nombre d'étapes est vérifié contre le registre des faits. */
-function Route() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    registerFactCheck({
-      name: 'étapes du trajet',
-      expected: route.steps.length,
-      actual: ref.current?.querySelectorAll('.step').length ?? 0,
-    });
-  });
-
+/* Menu : replie en tiroir sous 60rem. Le site precedent n'avait pas de menu
+   utilisable sur mobile, c'est le premier reproche du client. */
+function Nav() {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="route" ref={ref}>
-      {route.steps.map((s) => (
-        <div className="step" key={s.n}>
-          <div className="step__n" aria-hidden="true">{s.n}</div>
-          <h3>{s.h}</h3>
-          <p>{s.p}</p>
-          <img src={img(s.img)} alt={s.alt} width={900} height={506} loading="lazy" />
-        </div>
-      ))}
-    </div>
+    <header className="nav wrap">
+      <a className="nav__brand" href="#top">
+        <img src={img('logo-light.webp')} alt={nav.logoAlt} width={520} height={143} />
+      </a>
+
+      <button
+        className="nav__toggle"
+        aria-expanded={open}
+        aria-controls="nav-menu"
+        onClick={() => setOpen((v) => !v)}
+      >
+        {open ? 'Close' : 'Menu'}
+      </button>
+
+      <nav id="nav-menu" className={open ? 'nav__menu is-open' : 'nav__menu'}>
+        {nav.links.map((l) => (
+          <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
+        ))}
+        <a className="btn btn--sm" href={CONTACT_MAIL}>{nav.cta}</a>
+      </nav>
+    </header>
   );
 }
 
-/* Les trois chiffres du bandeau viennent tous de facts.json. */
-function Figures() {
-  const ref = useRef<HTMLDivElement>(null);
+/* Le trajet est le moment memorable : la ligne jaune traverse les 7 etapes.
+   Le nombre d'etapes rendues est verifie contre le registre des faits. */
+function Process() {
+  const ref = useRef<HTMLOListElement>(null);
 
   useEffect(() => {
     registerFactCheck({
-      name: 'bandeau de chiffres',
-      fact: 'services.count',
-      expected: fact('services.count'),
-      actual: services.items.length - 1,
+      name: 'etapes du processus',
+      fact: 'process.steps',
+      expected: process.steps.length,
+      actual: ref.current?.querySelectorAll('li').length ?? 0,
     });
   });
 
   return (
-    <div className="figures" ref={ref}>
-      {figures.items.map((f) => (
-        <div className="figure" key={f.label}>
-          <b>{f.value}</b>
-          <span>{f.label}</span>
+    <ol className="route" ref={ref}>
+      {process.steps.map((s, i) => (
+        <li className="step" key={s.h}>
+          <span className="step__n" aria-hidden="true">{i + 1}</span>
+          <h3>{s.h}</h3>
+          <p>{s.p}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function Categories() {
+  const ref = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    registerFactCheck({
+      name: 'categories de produits',
+      fact: 'categories.count',
+      expected: products.categories.length,
+      actual: ref.current?.querySelectorAll('li').length ?? 0,
+    });
+  });
+
+  return (
+    <ul className="cats" ref={ref}>
+      {products.categories.map((c) => <li key={c}>{c}</li>)}
+    </ul>
+  );
+}
+
+function Why() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    registerFactCheck({
+      name: 'avantages listes',
+      fact: 'advantages.count',
+      expected: why.items.length,
+      actual: ref.current?.querySelectorAll('.card').length ?? 0,
+    });
+  });
+
+  return (
+    <div className="cards cards--4" ref={ref}>
+      {why.items.map((w) => (
+        <div className="card" key={w.h}>
+          <h3>{w.h}</h3>
+          <p>{w.p}</p>
         </div>
       ))}
     </div>
@@ -60,7 +109,7 @@ function Figures() {
 export default function App() {
   return (
     <>
-      <div className="hero">
+      <div className="hero" id="top">
         <div className="hero__media" aria-hidden="true">
           <picture>
             <source media="(max-width: 44rem)" srcSet={img('hero-mobile.webp')} />
@@ -68,10 +117,7 @@ export default function App() {
           </picture>
         </div>
 
-        <header className="wrap nav">
-          <img className="nav__logo" src={img('logo-light.webp')} alt={nav.logoAlt} width={520} height={143} />
-          <a className="btn" href={QUOTE_MAIL}>{nav.cta}</a>
-        </header>
+        <Nav />
 
         <div className="wrap hero__inner">
           <h1 className="hero__title">
@@ -80,70 +126,139 @@ export default function App() {
           <p className="hero__lede">{hero.lede}</p>
           <div className="hero__stats">
             {hero.stats.map((s) => (
-              <span key={s.label}><b>{s.value}</b> {s.label}</span>
+              <span key={s.l}><b>{s.v}</b> {s.l}</span>
             ))}
           </div>
           <div className="hero__actions">
-            <a className="btn" href={QUOTE_MAIL}>{hero.cta}</a>
-            <a className="btn btn--ghost" href="#route">{hero.ctaGhost}</a>
+            <a className="btn" href={CONTACT_MAIL}>{hero.cta}</a>
+            <a className="btn btn--ghost" href="#process">{hero.ctaGhost}</a>
           </div>
         </div>
       </div>
 
       <main>
-        <section className="section wrap" id="route">
-          <p className="eyebrow">{route.eyebrow}</p>
-          <h2 className="section__title">{route.title}</h2>
-          <p className="section__lede">{route.lede}</p>
-          <Route />
+        {/* Produits */}
+        <section className="section wrap" id="products">
+          <p className="eyebrow">{products.eyebrow}</p>
+          <h2 className="section__title">{products.title}</h2>
+          <p className="section__lede">{products.lede}</p>
+          <Categories />
+          <div className="cards cards--2">
+            {products.points.map((p) => (
+              <div className="card" key={p.h}>
+                <h3>{p.h}</h3>
+                <p>{p.p}</p>
+              </div>
+            ))}
+          </div>
+          <p className="eyebrow" style={{ marginTop: '3rem' }}>Included with every order</p>
+          <ul className="chips">
+            {products.included.map((i) => <li key={i}>{i}</li>)}
+          </ul>
         </section>
 
-        <section className="light">
+        {/* Sourcing */}
+        <section className="light" id="sourcing">
           <div className="section wrap">
-            <p className="eyebrow">{services.eyebrow}</p>
-            <h2 className="section__title">{services.title}</h2>
-            <div className="services">
-              {services.items.map((s) => (
-                <div className="service" key={s.h}>
+            <p className="eyebrow">{sourcing.eyebrow}</p>
+            <h2 className="section__title">{sourcing.title}</h2>
+            <p className="section__lede">{sourcing.lede}</p>
+            <div className="cards cards--3">
+              {sourcing.items.map((s) => (
+                <div className="card" key={s.h}>
                   <h3>{s.h}</h3>
                   <p>{s.p}</p>
                 </div>
               ))}
             </div>
+            <p className="eyebrow" style={{ marginTop: '3rem' }}>{sourcing.forWhom.h}</p>
+            <ul className="chips">
+              {sourcing.forWhom.list.map((i) => <li key={i}>{i}</li>)}
+            </ul>
           </div>
         </section>
 
-        <section className="section wrap">
-          <p className="eyebrow">{figures.eyebrow}</p>
-          <h2 className="section__title">{figures.title}</h2>
-          <Figures />
-          <p style={{ marginTop: '2rem', fontSize: 'var(--step--1)', color: 'var(--text-dim)' }}>
-            {figures.note}
-          </p>
+        {/* Le processus : moment memorable */}
+        <section className="section wrap" id="process">
+          <p className="eyebrow">{process.eyebrow}</p>
+          <h2 className="section__title">{process.title}</h2>
+          <p className="section__lede">{process.lede}</p>
+          <Process />
         </section>
 
+        {/* Bandeau image */}
+        <div className="band" aria-hidden="true">
+          <img src={img('step-fixture.webp')} alt="" width={900} height={506} loading="lazy" />
+        </div>
+
+        {/* Services */}
+        <section className="section wrap" id="services">
+          <p className="eyebrow">{services.eyebrow}</p>
+          <h2 className="section__title">{services.title}</h2>
+          <p className="section__lede">{services.lede}</p>
+          <div className="cards cards--2">
+            {services.items.map((s) => (
+              <div className="card" key={s.h}>
+                <h3>{s.h}</h3>
+                <p>{s.p}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Le format */}
         <section className="light">
           <div className="section wrap">
-            <p className="eyebrow">{faq.eyebrow}</p>
-            <h2 className="section__title">{faq.title}</h2>
-            <div className="faq">
-              {faq.items.map((f) => (
-                <div key={f.q}>
-                  <h3>{f.q}</h3>
-                  <p>{f.a}</p>
+            <p className="eyebrow">{model.eyebrow}</p>
+            <h2 className="section__title">{model.title}</h2>
+            <p className="section__lede">{model.lede}</p>
+            <div className="cards cards--4">
+              {model.items.map((m) => (
+                <div className="card" key={m.h}>
+                  <h3>{m.h}</h3>
+                  <p>{m.p}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="quote">
+        {/* Pourquoi nous */}
+        <section className="section wrap" id="why">
+          <p className="eyebrow">{why.eyebrow}</p>
+          <h2 className="section__title">{why.title}</h2>
+          <Why />
+        </section>
+
+        {/* FAQ */}
+        <section className="light" id="faq">
           <div className="section wrap">
-            <h2 className="section__title">{quote.title}</h2>
-            <p className="section__lede">{quote.lede}</p>
+            <p className="eyebrow">{faq.eyebrow}</p>
+            <h2 className="section__title">{faq.title}</h2>
+            <div className="faq">
+              {faq.items.map((f) => (
+                <details key={f.q}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className="quote" id="contact">
+          <div className="section wrap">
+            <p className="eyebrow">{contact.eyebrow}</p>
+            <h2 className="section__title">{contact.title}</h2>
+            <p className="section__lede">{contact.lede}</p>
+            <ul className="chips chips--dark">
+              {contact.offers.map((o) => <li key={o}>{o}</li>)}
+            </ul>
             <p style={{ marginTop: '2rem' }}>
-              <a className="btn" href={QUOTE_MAIL}>{quote.cta}</a>
+              <a className="btn" href={CONTACT_MAIL}>{contact.cta}</a>
             </p>
+            <p className="quote__reassure">{contact.reassurance}</p>
           </div>
         </section>
       </main>

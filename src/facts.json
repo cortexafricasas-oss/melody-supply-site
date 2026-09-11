@@ -2,40 +2,122 @@
   "facts": [
     {
       "id": "years.experience",
-      "label": "Années d'expertise supply chain",
+      "label": "Années d'expérience",
       "value": 20,
       "unit": "ans",
-      "source": "site melodychinasupply.com + confirmé par le fondateur le 11/09/2026"
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 + confirmé par le fondateur"
     },
     {
       "id": "catalog.items",
       "label": "Références au catalogue",
       "value": 30000,
-      "unit": "articles",
-      "source": "site melodychinasupply.com + confirmé par le fondateur le 11/09/2026"
+      "unit": "produits",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 + confirmé par le fondateur"
     },
     {
       "id": "clients.count",
       "label": "Clients servis",
       "value": 10000,
       "unit": "clients",
-      "source": "site melodychinasupply.com + confirmé par le fondateur le 11/09/2026"
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 + confirmé par le fondateur"
     },
     {
-      "id": "services.count",
-      "label": "Services au-delà de la fourniture",
+      "id": "warehouse.sqm",
+      "label": "Surface d'entrepôts",
+      "value": 30000,
+      "unit": "m²",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+    },
+    {
+      "id": "categories.count",
+      "label": "Catégories de produits",
+      "value": 23,
+      "unit": "catégories",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+    },
+    {
+      "id": "process.steps",
+      "label": "Étapes du processus d'ouverture",
+      "value": 7,
+      "unit": "étapes",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Étapes à suivre"
+    },
+    {
+      "id": "order.minimum",
+      "label": "Minimum de commande hors transport",
+      "value": 3300,
+      "unit": "EUR",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+    },
+    {
+      "id": "layout.minimum.sqm",
+      "label": "Surface à partir de laquelle le plan 2D est offert",
+      "value": 100,
+      "unit": "m²",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — pages Services et Contact"
+    },
+    {
+      "id": "reply.days.min",
+      "label": "Délai de réponse minimum",
+      "value": 1,
+      "unit": "jours ouvrables",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Contact"
+    },
+    {
+      "id": "reply.days.max",
+      "label": "Délai de réponse maximum",
+      "value": 4,
+      "unit": "jours ouvrables",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Contact"
+    },
+    {
+      "id": "continents",
+      "label": "Continents couverts",
       "value": 5,
-      "unit": "services",
-      "source": "comptage des services listés sur le site actuel"
+      "unit": "continents",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+    },
+    {
+      "id": "advantages.count",
+      "label": "Avantages listés",
+      "value": 8,
+      "unit": "avantages",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Brochure"
+    },
+    {
+      "id": "unit.cost.min",
+      "label": "Prix d'achat unitaire le plus bas",
+      "value": 0.2,
+      "unit": "EUR",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+    },
+    {
+      "id": "unit.cost.max",
+      "label": "Prix d'achat unitaire haut de la chaîne 1 €",
+      "value": 0.3,
+      "unit": "EUR",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+    },
+    {
+      "id": "retail.price.min",
+      "label": "Prix de vente conseillé bas",
+      "value": 1,
+      "unit": "EUR",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Brochure"
+    },
+    {
+      "id": "retail.price.max",
+      "label": "Prix de vente conseillé haut",
+      "value": 2,
+      "unit": "EUR",
+      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Brochure"
     }
   ],
   "derived": [],
   "allowed_numbers": [
-    1,
     2,
     3,
-    4,
-    5,
+    6,
     2026
   ],
   "ignore_patterns": []
