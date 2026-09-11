@@ -12,7 +12,7 @@
 
   --measure: 33rem;
   --gutter: clamp(1.25rem, 5vw, 5.5rem);
-  --section: clamp(4rem, 10vh, 8rem);
+  --section: clamp(2.25rem, 6vh, 6rem);
 
   --step--1: clamp(0.8rem, 0.77rem + 0.14vw, 0.88rem);
   --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
@@ -20,6 +20,9 @@
   --step-2:  clamp(1.75rem, 1.35rem + 1.9vw, 2.9rem);
   --step-3:  clamp(2.4rem, 1.5rem + 4vw, 5rem);
   --step-num: clamp(2.6rem, 1.8rem + 3.4vw, 4.6rem);
+  /* Texte courant des blocs : 16 px fixes. En dessous de 15 px la lecture
+     decroche sur ordinateur, et sous 16 px Safari iOS zoome les champs. */
+  --step-body: 1rem;
 }
 
 @font-face {
@@ -110,7 +113,7 @@ a { color: inherit; }
   margin-bottom: 0.85rem;
 }
 .section__title { font-size: var(--step-2); max-width: 20ch; }
-.section__lede { margin-top: 1.1rem; }
+.section__lede { margin-top: 0.8rem; }
 
 /* ---------- Devis ---------- */
 
@@ -129,15 +132,15 @@ a { color: inherit; }
 /* ---------- Pied : coordonnees et reseaux ---------- */
 
 .foot {
-  border-top: 1px solid #383B33; padding-block: 3rem;
+  border-top: 1px solid #383B33; padding-block: 1.85rem;
   font-size: var(--step--1); color: var(--text-dim);
 }
 .foot__brand { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
 .foot__brand strong { color: var(--paper); font-size: var(--step-1); }
 
 .foot__reach {
-  margin: 2rem 0 0; padding: 0; list-style: none;
-  display: grid; gap: 1rem;
+  margin: 1.5rem 0 0; padding: 0; list-style: none;
+  display: grid; gap: 0.8rem;
 }
 @media (min-width: 44rem) { .foot__reach { grid-template-columns: 1fr 1fr; gap: 1.1rem 2.5rem; } }
 
@@ -209,7 +212,7 @@ a { color: inherit; }
 /* ---------- Catégories ---------- */
 
 .cats {
-  margin: 2.5rem 0 0; padding: 0; list-style: none;
+  margin: 1.75rem 0 0; padding: 0; list-style: none;
   display: flex; flex-wrap: wrap; gap: 0.5rem;
 }
 .cats li {
@@ -220,8 +223,8 @@ a { color: inherit; }
 
 /* ---------- Chips ---------- */
 
-.chips { margin: 1rem 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-.chips li { font-size: var(--step--1); color: var(--text-dim); position: relative; padding-left: 1rem; }
+.chips { margin: 0.75rem 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.chips li { font-size: var(--step-body); color: var(--text-dim); position: relative; padding-left: 1rem; }
 .chips li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 0.4rem; height: 0.4rem; background: var(--signal); }
 .light .chips li { color: var(--ink-dim); }
 .chips--dark li { color: #4A4326; }
@@ -229,7 +232,7 @@ a { color: inherit; }
 
 /* ---------- Cartes ---------- */
 
-.cards { margin-top: 2.5rem; display: grid; gap: 1.75rem; }
+.cards { margin-top: 1.75rem; display: grid; gap: 1.35rem; }
 @media (min-width: 46rem) {
   .cards--2 { grid-template-columns: repeat(2, 1fr); gap: 2rem 3rem; }
   .cards--3 { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
@@ -239,12 +242,12 @@ a { color: inherit; }
 
 .card { border-top: 2px solid var(--signal); padding-top: 1rem; }
 .card h3 { font-size: var(--step-1); }
-.card p { margin-top: 0.45rem; font-size: var(--step--1); line-height: 1.6; color: var(--text-dim); }
+.card p { margin-top: 0.45rem; font-size: var(--step-body); line-height: 1.6; color: var(--text-dim); }
 .light .card p { color: var(--ink-dim); }
 
 /* ---------- Le processus : moment mémorable ---------- */
 
-.route { margin: 3rem 0 0; padding: 0; list-style: none; display: grid; gap: 1.75rem; position: relative; }
+.route { margin: 1.5rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.9rem; position: relative; }
 
 @media (min-width: 64rem) {
   .route { grid-template-columns: repeat(7, 1fr); gap: 1rem; }
@@ -257,10 +260,17 @@ a { color: inherit; }
 @keyframes route-draw { to { transform: scaleX(1); } }
 
 .step { position: relative; }
+/* Le numero passe en ligne avec le titre : la pastille posee au-dessus
+   coutait 45 px par etape, sept fois. */
 .step__n {
-  display: flex; align-items: center; justify-content: center;
-  width: 2.6rem; height: 2.6rem; background: var(--signal); color: var(--ink);
-  font-weight: 800; position: relative; z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.9rem; height: 1.9rem; background: var(--signal); color: var(--ink);
+  font-weight: 800; font-size: var(--step--1); position: relative; z-index: 1;
+  float: left; margin: 0.1rem 0.7rem 0 0;
+}
+@media (min-width: 64rem) {
+  .step__n { float: none; display: flex; width: 2.6rem; height: 2.6rem;
+             font-size: var(--step-0); margin: 0; }
 }
 .step h3 { margin-top: 0.9rem; font-size: var(--step-1); }
 .step p { margin-top: 0.4rem; font-size: var(--step--1); line-height: 1.55; color: var(--text-dim); }
@@ -282,27 +292,12 @@ a { color: inherit; }
 .faq details[open] summary::after { content: '−'; }
 .faq details p { margin-top: 0.6rem; }
 
-.quote__reassure { margin-top: 1.5rem; font-size: var(--step--1); color: #4A4326; }
+.quote__reassure { margin-top: 1.1rem; font-size: var(--step--1); color: #4A4326; }
 
 /* ---------- Motion au défilement ---------- */
 
-/* Révélation : opacité + léger déplacement. Le délai en cascade est posé en JS. */
-[data-reveal] {
-  opacity: 0;
-  transform: translate3d(0, 14px, 0);
-  transition: opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-[data-reveal][data-revealed='true'] {
-  opacity: 1;
-  transform: none;
-  will-change: auto;
-}
 
 /* Les catégories arrivent d'un cran plus court : elles sont nombreuses. */
-.cats [data-reveal] { transform: translate3d(0, 8px, 0) scale(0.97); }
-.cats [data-reveal][data-revealed='true'] { transform: none; }
 
 /* Parallaxe du héros : l'image descend plus lentement que le texte. */
 .hero__media {
@@ -328,7 +323,6 @@ a { color: inherit; }
 .band:hover img { transform: scale(1.03); }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
   .hero__media { transform: none !important; }
   .nav { position: static; }
 }
@@ -474,15 +468,15 @@ a { color: inherit; }
 .form { margin-top: 2.25rem; max-width: 46rem; }
 .form__trap { position: absolute; left: -9999px; top: 0; width: 46px; height: 46px; opacity: 0; }
 
-.form__grid { display: grid; gap: 1rem; }
+.form__grid { display: grid; gap: 0.75rem; }
 @media (min-width: 44rem) { .form__grid { grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; } }
 
-.form label, .form__full { display: flex; flex-direction: column; gap: 0.35rem; }
+.form label, .form__full { display: flex; flex-direction: column; gap: 0.25rem; }
 .form__full { margin-top: 1rem; }
 .form label span, .form__full span { font-size: var(--step--1); font-weight: 700; color: #4A4326; }
 
 .form input, .form select, .form textarea {
-  min-height: 46px; padding: 0.55rem 0.7rem;
+  min-height: 44px; padding: 0.45rem 0.7rem;
   background: var(--paper); color: var(--ink);
   border: 2px solid #C79E3E; border-radius: 0;
   font: inherit; font-size: var(--step-0);
@@ -603,7 +597,7 @@ a { color: inherit; }
 }
 .tips li {
   position: relative; padding-left: 1.15rem;
-  font-size: var(--step--1); line-height: 1.55; color: var(--ink-dim);
+  font-size: var(--step-body); line-height: 1.55; color: var(--ink-dim);
 }
 .tips li::before {
   content: ''; position: absolute; left: 0; top: 0.55em;
@@ -611,7 +605,7 @@ a { color: inherit; }
 }
 
 .cat__note {
-  margin-top: 1.2rem; font-size: var(--step--1); font-weight: 700;
+  margin-top: 1.2rem; font-size: var(--step-body); font-weight: 700;
   color: var(--ink) !important;
 }
 
@@ -706,8 +700,138 @@ a { color: inherit; }
 
 /* Mentions de bas de page : aucune grande maison ne termine sans elles. */
 .foot__legal {
-  margin-top: 2.5rem; padding-top: 1.2rem;
+  margin-top: 1.75rem; padding-top: 1.2rem;
   border-top: 1px solid #383B33;
-  font-size: var(--step--1); color: var(--text-dim); max-width: 46rem;
+  font-size: var(--step-body); color: var(--text-dim); max-width: 46rem;
 }
 .foot__legal + .foot__legal { margin-top: 0.35rem; padding-top: 0; border-top: 0; }
+
+
+/* ---------- Les doutes : des lignes, pas une grille ---------- */
+
+/* Rupture de rythme voulue : la page enchaine des grilles de cartes, cette
+   section repond en colonnes doute / reponse, separees par des filets. */
+.doubts { margin-top: 1.75rem; border-top: 1px solid #D6D4CC; }
+
+.doubt {
+  display: grid; gap: 0.25rem;
+  padding: 0.9rem 0 1rem;
+  border-bottom: 1px solid #D6D4CC;
+}
+@media (min-width: 52rem) {
+  .doubt { grid-template-columns: 19rem 1fr; gap: 0 2.5rem; align-items: start; }
+}
+
+.doubt__q {
+  position: relative; padding-left: 1.1rem;
+  font-size: var(--step-0); font-weight: 800; line-height: 1.3;
+  color: var(--ink); max-width: none;
+}
+.doubt__q::before {
+  content: ''; position: absolute; left: 0; top: 0.62em;
+  width: 0.6rem; height: 2px; background: var(--signal);
+}
+.doubt__a {
+  font-size: var(--step-body); line-height: 1.6; color: var(--ink-dim);
+  max-width: 44rem;
+}
+
+/* ---------- La salle de vente : images en pleine largeur ---------- */
+
+.shots { margin-top: 1.75rem; display: grid; gap: 0.5rem; grid-template-columns: 1fr 1fr; }
+.shot { margin: 0; overflow: hidden; background: #E8E7E1; }
+.shot:first-child { grid-column: 1 / -1; }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot:first-child img { aspect-ratio: 16 / 9; }
+.shot:not(:first-child) img { aspect-ratio: 4 / 3; }
+
+@media (min-width: 52rem) {
+  .shots { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .shot:first-child { grid-column: auto; }
+  .shot img, .shot:first-child img, .shot:not(:first-child) img { aspect-ratio: 4 / 3; }
+}
+
+.shots__caption {
+  margin-top: 0.7rem; font-size: var(--step--1); color: var(--ink-dim);
+}
+
+/* L'equipement : une liste de definitions, pas encore des cartes. */
+.equip { margin: 1.75rem 0 0; display: grid; gap: 0; }
+@media (min-width: 52rem) {
+  .equip { grid-template-columns: 1fr 1fr; gap: 0 3rem; }
+}
+.equip__row { padding: 0.8rem 0; border-top: 1px solid #D6D4CC; }
+.equip dt { font-size: var(--step-0); font-weight: 800; color: var(--ink); }
+.equip dd {
+  margin: 0.3rem 0 0; font-size: var(--step-body); line-height: 1.6;
+  color: var(--ink-dim); max-width: 40rem;
+}
+
+/* Intitule interne : ce n'est plus un petit titre de section. */
+.sub-label {
+  margin-top: 1.75rem; margin-bottom: 0.6rem;
+  font-size: var(--step--1); font-weight: 800; letter-spacing: 0.02em;
+  color: var(--ink-dim);
+}
+.light .sub-label { color: var(--ink-dim); }
+
+
+/* ---------- Le bouton de l'assistant, en retrait ---------- */
+
+/* display:flex sur .ask__open ecraserait l'attribut hidden comme sur le panneau. */
+.ask__open[hidden] { display: none !important; }
+
+/* Sur un telephone, le bouton reste au repos : l'avatar seul, plus petit, sans
+   l'ombre portee qui le faisait flotter au-dessus du texte. */
+@media (max-width: 34rem) {
+  .ask__open--idle { width: 48px; height: 48px; }
+  .ask__open--idle .ask__dot { width: 11px; height: 11px; }
+  .ask__teaser { max-width: calc(100vw - 5.5rem); }
+}
+
+
+/* Le depliage des categories : un lien, pas un bouton qui se remarque. */
+.cats__more {
+  /* 44 px de haut : c'est la cible tactile minimale, pas une marge de confort. */
+  margin-top: 0.4rem; padding: 0.75rem 0; min-height: 44px;
+  background: none; border: 0; cursor: pointer;
+  font: inherit; font-size: var(--step--1); font-weight: 800; color: inherit;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--signal); text-decoration-thickness: 2px;
+}
+.cats__more:hover { color: var(--signal); }
+.cats li[hidden] { display: none !important; }
+
+
+/* Le second volet d'une section double : un titre de rang inferieur, separe
+   par un filet plutot que par une nouvelle section et ses marges. */
+.split {
+  margin-top: 2.25rem; padding-top: 1.75rem;
+  border-top: 2px solid var(--signal);
+}
+.split__title { font-size: var(--step-1); max-width: 22ch; }
+.split__lede { margin-top: 0.65rem; font-size: var(--step-body); line-height: 1.6; }
+
+/* Les questions se lisent serre : c'est une liste de reference, pas un discours. */
+.faq details { padding-block: 0.85rem; }
+
+
+/* ---------- Le repliage des questions de contexte ---------- */
+
+.form__more { margin-top: 0.75rem; }
+.form__more > summary {
+  cursor: pointer; list-style: none;
+  padding: 0.7rem 0; min-height: 44px;
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: var(--step--1); font-weight: 800; color: #4A4326;
+}
+.form__more > summary::-webkit-details-marker { display: none; }
+.form__more > summary::before {
+  content: '+'; display: inline-flex; align-items: center; justify-content: center;
+  width: 1.35rem; height: 1.35rem; flex: none;
+  border: 2px solid #4A4326; font-size: 1rem; line-height: 1;
+}
+.form__more[open] > summary::before { content: '\2212'; }
+.form__more > summary:hover { color: var(--ink); }
+.form__more > summary:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.form__more[open] .form__grid { margin-top: 0.5rem; }

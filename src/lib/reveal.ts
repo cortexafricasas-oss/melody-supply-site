@@ -1,8 +1,11 @@
 /**
  * Motion au defilement, sans bibliotheque.
- * - revelation en cascade des elements marques [data-reveal]
  * - parallaxe douce sur le heros
  * - barre de navigation qui se condense
+ *
+ * La revelation en cascade a ete retiree : sur un telephone lent, elle laissait
+ * des zones vides tant que l'observateur ne s'etait pas declenche. Le contenu
+ * doit etre lisible des la premiere image affichee, sans exception.
  * Tout est desactive si l'utilisateur demande moins d'animation.
  */
 const reduced = () =>
@@ -10,36 +13,8 @@ const reduced = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function startMotion(): () => void {
-  if (typeof window === 'undefined') return () => {};
+  if (typeof window === 'undefined' || reduced()) return () => {};
 
-  const cleanups: Array<() => void> = [];
-
-  if (reduced()) {
-    document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
-      el.dataset.revealed = 'true';
-    });
-    return () => {};
-  }
-
-  // 1. Revelation en cascade
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target as HTMLElement;
-        const group = el.parentElement;
-        const index = group ? [...group.children].indexOf(el) : 0;
-        el.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
-        el.dataset.revealed = 'true';
-        io.unobserve(el);
-      });
-    },
-    { rootMargin: '0px 0px -12% 0px', threshold: 0.12 },
-  );
-  document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => io.observe(el));
-  cleanups.push(() => io.disconnect());
-
-  // 2. Parallaxe du heros + 3. nav condensee
   const media = document.querySelector<HTMLElement>('.hero__media');
   const nav = document.querySelector<HTMLElement>('.nav');
   let ticking = false;
@@ -59,7 +34,5 @@ export function startMotion(): () => void {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-  cleanups.push(() => window.removeEventListener('scroll', onScroll));
-
-  return () => cleanups.forEach((fn) => fn());
+  return () => window.removeEventListener('scroll', onScroll);
 }

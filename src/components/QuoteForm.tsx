@@ -140,6 +140,11 @@ export function QuoteForm() {
           </select>
         </label>
 
+      </div>
+
+      <details className="form__more">
+        <summary>Add project details — helps us answer precisely</summary>
+        <div className="form__grid">
         <label>
           <span>My situation</span>
           <select name="situation" defaultValue="">
@@ -176,7 +181,8 @@ export function QuoteForm() {
           <span>Store floor area (sq ft or sqm)</span>
           <input name="area" maxLength={40} inputMode="numeric" />
         </label>
-      </div>
+        </div>
+      </details>
 
       <label className="form__full">
         <span>Anything else we should know</span>

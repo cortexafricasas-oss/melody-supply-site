@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
-  WECHAT_ID, CONTACT_EMAIL, nav, hero, catalogue, products, sourcing, process, services, why, model, faq, contact, objections, foot, fact,
+  WECHAT_ID, CONTACT_EMAIL, nav, hero, catalogue, products, sourcing, process, store, faq, contact, doubts, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
@@ -59,7 +59,7 @@ function Process() {
   return (
     <ol className="route" ref={ref}>
       {process.steps.map((s, i) => (
-        <li className="step" data-reveal key={s.h}>
+        <li className="step" key={s.h}>
           <span className="step__n" aria-hidden="true">{i + 1}</span>
           <h3>{s.h}</h3>
           <p>{s.p}</p>
@@ -71,6 +71,7 @@ function Process() {
 
 function Categories() {
   const ref = useRef<HTMLUListElement>(null);
+  const [all, setAll] = useState(false);
 
   useEffect(() => {
     registerFactCheck({
@@ -81,31 +82,45 @@ function Categories() {
     });
   });
 
+  /* Huit categories suffisent a montrer l'etendue ; les quinze autres tiennent
+     derriere un depliage plutot que 400 px de liste sur un telephone. */
+  const VISIBLES = 8;
   return (
-    <ul className="cats" ref={ref}>
-      {products.categories.map((c) => <li data-reveal key={c}>{c}</li>)}
-    </ul>
+    <>
+      <ul className="cats" ref={ref}>
+        {products.categories.map((c, i) => (
+          <li key={c} hidden={i >= VISIBLES && !all}>{c}</li>
+        ))}
+      </ul>
+      {!all && (
+        <button className="cats__more" type="button" onClick={() => setAll(true)}>
+          See all {products.categories.length} categories
+        </button>
+      )}
+    </>
   );
 }
 
-function Why() {
+/* Les doutes et leurs reponses : une colonne de lignes, pas une grille de cartes.
+   Le rythme de la page repose sur cette rupture. */
+function Doubts() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     registerFactCheck({
-      name: 'avantages listes',
-      fact: 'advantages.count',
-      expected: why.items.length,
-      actual: ref.current?.querySelectorAll('.card').length ?? 0,
+      name: 'doutes traites',
+      fact: 'objections.count',
+      expected: doubts.items.length,
+      actual: ref.current?.querySelectorAll('.doubt').length ?? 0,
     });
   });
 
   return (
-    <div className="cards cards--4" ref={ref}>
-      {why.items.map((w) => (
-        <div className="card" data-reveal key={w.h}>
-          <h3>{w.h}</h3>
-          <p>{w.p}</p>
+    <div className="doubts" ref={ref}>
+      {doubts.items.map((d) => (
+        <div className="doubt" key={d.q}>
+          <p className="doubt__q">{d.q}</p>
+          <p className="doubt__a">{d.a}</p>
         </div>
       ))}
     </div>
@@ -150,34 +165,33 @@ export default function App() {
       <main>
         {/* Produits */}
         <section className="section wrap" id="products">
-          <p className="eyebrow">{products.eyebrow}</p>
-          <h2 className="section__title" data-reveal>{products.title}</h2>
-          <p className="section__lede" data-reveal>{products.lede}</p>
+                    <h2 className="section__title">{products.title}</h2>
+          <p className="section__lede">{products.lede}</p>
           <Categories />
           <div className="cards cards--2">
             {products.points.map((p) => (
-              <div className="card" data-reveal key={p.h}>
+              <div className="card" key={p.h}>
                 <h3>{p.h}</h3>
                 <p>{p.p}</p>
               </div>
             ))}
           </div>
-          <p className="eyebrow" style={{ marginTop: '3rem' }}>Included with every order</p>
+          <p className="sub-label">Included with every order</p>
           <ul className="chips">
             {products.included.map((i) => <li key={i}>{i}</li>)}
           </ul>
         </section>
 
-        {/* Catalogues en ligne */}
+        {/* Les deux facons d'obtenir la marchandise, en une seule section :
+            se servir dans les catalogues, ou nous nommer le produit. */}
         <section className="light" id="catalogue">
           <div className="section wrap">
-            <p className="eyebrow">{catalogue.eyebrow}</p>
-            <h2 className="section__title" data-reveal>{catalogue.title}</h2>
-            <p className="section__lede" data-reveal>{catalogue.lede}</p>
+            <h2 className="section__title">{catalogue.title}</h2>
+            <p className="section__lede">{catalogue.lede}</p>
 
             <div className="cards cards--2">
               {catalogue.lines.map((l) => (
-                <div className="card cat" data-reveal key={l.h}>
+                <div className="card cat" key={l.h}>
                   <h3>{l.h}</h3>
                   <p className="cat__price">{l.price}</p>
                   <p>{l.p}</p>
@@ -194,23 +208,21 @@ export default function App() {
               {catalogue.tips.map((t) => <li key={t}>{t}</li>)}
             </ul>
             <p className="cat__note">{catalogue.note}</p>
-          </div>
-        </section>
 
-        {/* Sourcing */}
-        <section className="light" id="sourcing">
-          <div className="section wrap">
-            <p className="eyebrow">{sourcing.eyebrow}</p>
-            <h2 className="section__title" data-reveal>{sourcing.title}</h2>
-            <p className="section__lede" data-reveal>{sourcing.lede}</p>
-            <div className="cards cards--3">
-              {sourcing.items.map((s) => (
-                <div className="card" data-reveal key={s.h}>
-                  <h3>{s.h}</h3>
-                  <p>{s.p}</p>
+            <div className="split" id="sourcing">
+              <h3 className="split__title">{sourcing.title}</h3>
+              <p className="split__lede">{sourcing.lede}</p>
+            </div>
+
+            <dl className="equip">
+              {sourcing.items.map((item) => (
+                <div className="equip__row" key={item.h}>
+                  <dt>{item.h}</dt>
+                  <dd>{item.p}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
+
             <VideoNote
               title={sourcing.video.title}
               line={sourcing.video.line}
@@ -218,90 +230,71 @@ export default function App() {
               poster={sourcing.video.poster}
               src={sourcing.video.src}
             />
-            <p className="eyebrow" style={{ marginTop: '3rem' }}>{sourcing.forWhom.h}</p>
+
+            <p className="sub-label">{sourcing.forWhom.h}</p>
             <ul className="chips">
               {sourcing.forWhom.list.map((i) => <li key={i}>{i}</li>)}
             </ul>
           </div>
         </section>
 
-        {/* Les 6 objections : le frein avant l'achat */}
+        {/* Les doutes, fusion des anciennes sections objections, avantages et format */}
         <section className="light" id="objections">
           <div className="section wrap">
-            <p className="eyebrow">{objections.eyebrow}</p>
-            <h2 className="section__title" data-reveal>{objections.title}</h2>
-            <p className="section__lede" data-reveal>{objections.lede}</p>
-            <div className="cards cards--3">
-              {objections.items.map((o) => (
-                <div className="card" data-reveal key={o.h}>
-                  <h3>{o.h}</h3>
-                  <p>{o.p}</p>
-                </div>
-              ))}
-            </div>
+            <p className="eyebrow">{doubts.eyebrow}</p>
+            <h2 className="section__title">{doubts.title}</h2>
+            <p className="section__lede">{doubts.lede}</p>
+            <Doubts />
           </div>
         </section>
 
         {/* Le processus : moment memorable */}
         <section className="section wrap" id="process">
-          <p className="eyebrow">{process.eyebrow}</p>
-          <h2 className="section__title" data-reveal>{process.title}</h2>
-          <p className="section__lede" data-reveal>{process.lede}</p>
+          <h2 className="section__title">{process.title}</h2>
+          <p className="section__lede">{process.lede}</p>
           <Process />
         </section>
 
-        {/* Bandeau image */}
-        <div className="band" aria-hidden="true">
-          <img src={img('step-fixture.webp')} alt="" width={900} height={506} loading="lazy" />
-        </div>
-
-        {/* Services */}
-        <section className="section wrap" id="services">
-          <p className="eyebrow">{services.eyebrow}</p>
-          <h2 className="section__title" data-reveal>{services.title}</h2>
-          <p className="section__lede" data-reveal>{services.lede}</p>
-          <div className="cards cards--2">
-            {services.items.map((s) => (
-              <div className="card" data-reveal key={s.h}>
-                <h3>{s.h}</h3>
-                <p>{s.p}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Le format */}
-        <section className="light">
+        {/* La salle de vente : preuve visuelle + ce qu'on equipe */}
+        <section className="light" id="store">
           <div className="section wrap">
-            <p className="eyebrow">{model.eyebrow}</p>
-            <h2 className="section__title" data-reveal>{model.title}</h2>
-            <p className="section__lede" data-reveal>{model.lede}</p>
-            <div className="cards cards--4">
-              {model.items.map((m) => (
-                <div className="card" data-reveal key={m.h}>
-                  <h3>{m.h}</h3>
-                  <p>{m.p}</p>
-                </div>
+            <h2 className="section__title">{store.title}</h2>
+            <p className="section__lede">{store.lede}</p>
+
+            <div className="shots">
+              {store.shots.map((shot) => (
+                <figure className="shot" key={shot.src}>
+                  <img
+                    src={`${BASE}${shot.src}`}
+                    alt={shot.alt}
+                    width={1200}
+                    height={675}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
               ))}
             </div>
-          </div>
-        </section>
+            <p className="shots__caption">{store.caption}</p>
 
-        {/* Pourquoi nous */}
-        <section className="section wrap" id="why">
-          <p className="eyebrow">{why.eyebrow}</p>
-          <h2 className="section__title" data-reveal>{why.title}</h2>
-          <Why />
+            <dl className="equip">
+              {store.items.map((item) => (
+                <div className="equip__row" key={item.h}>
+                  <dt>{item.h}</dt>
+                  <dd>{item.p}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </section>
 
         {/* FAQ */}
         <section className="light" id="faq">
           <div className="section wrap">
-            <p className="eyebrow">{faq.eyebrow}</p>
-            <h2 className="section__title" data-reveal>{faq.title}</h2>
+                        <h2 className="section__title">{faq.title}</h2>
             <div className="faq">
               {faq.items.map((f) => (
-                <details data-reveal key={f.q}>
+                <details key={f.q}>
                   <summary>{f.q}</summary>
                   <p>{f.a}</p>
                 </details>
@@ -314,11 +307,8 @@ export default function App() {
         <section className="quote" id="contact">
           <div className="section wrap">
             <p className="eyebrow">{contact.eyebrow}</p>
-            <h2 className="section__title" data-reveal>{contact.title}</h2>
-            <p className="section__lede" data-reveal>{contact.lede}</p>
-            <ul className="chips chips--dark">
-              {contact.offers.map((o) => <li key={o}>{o}</li>)}
-            </ul>
+            <h2 className="section__title">{contact.title}</h2>
+            <p className="section__lede">{contact.lede}</p>
             <QuoteForm />
             <p className="quote__reassure">{contact.reassurance}</p>
           </div>

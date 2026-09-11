@@ -44,9 +44,9 @@ export const nav = {
     { label: 'Products', href: '#products' },
     { label: 'Catalog', href: '#catalogue' },
     { label: 'Sourcing', href: '#sourcing' },
+    { label: 'Answers', href: '#objections' },
     { label: 'Process', href: '#process' },
-    { label: 'Services', href: '#services' },
-    { label: 'Why us', href: '#why' },
+    { label: 'The store', href: '#store' },
     { label: 'FAQ', href: '#faq' },
   ],
   cta: 'Contact us',
@@ -70,7 +70,6 @@ export const hero = {
 };
 
 export const products = {
-  eyebrow: 'One-stop supply',
   title: `${n('categories.count')} categories. One container.`,
   lede:
     `Two product lines: a one-dollar line sourced between ${usd('unit.cost.min.usd')} and ` +
@@ -86,20 +85,8 @@ export const products = {
   ],
   points: [
     {
-      h: 'Ultra-flexible MOQ',
-      p: `Order any item in small quantities and build your own mix. One condition: ${usd('order.minimum.usd')} total order value, shipping excluded.`,
-    },
-    {
       h: 'Real stock, fast dispatch',
       p: `Our own ${n('warehouse.sqft')} sq ft (${n('warehouse.sqm')} sqm) of warehousing keeps products available at stable prices and orders moving quickly.`,
-    },
-    {
-      h: 'Factory pricing, checked quality',
-      p: 'We buy at source and inspect in-house before anything is packed.',
-    },
-    {
-      h: 'Everything in one container',
-      p: 'Products, shelving and store equipment consolidated into a single shipment.',
     },
   ],
   included: [
@@ -113,7 +100,6 @@ export const products = {
 };
 
 export const catalogue = {
-  eyebrow: 'Browse before you ask',
   title: 'Two live catalogs. Open access.',
   lede:
     'Look through the actual products before contacting us. No account needed — ' +
@@ -145,7 +131,6 @@ export const catalogue = {
 };
 
 export const sourcing = {
-  eyebrow: 'Sourcing service',
   title: 'Your buying team in China.',
   lede:
     'Name the product you need - a photo, a sample, a reference - and we find ' +
@@ -174,42 +159,41 @@ export const sourcing = {
   },
 };
 
-export const objections = {
+export const doubts = {
   eyebrow: 'What stops most buyers',
-  title: `${n('objections.count')} reasons people hesitate. Answered.`,
+  title: `${n('objections.count')} doubts. Answered one by one.`,
   lede:
-    'These are the objections we hear before every first order. None of them ' +
-    'is a reason not to start.',
+    'These come up before every first order. None of them is a reason not to start.',
   items: [
     {
-      h: 'Unreliable suppliers',
-      p: `Uneven quality, narrow ranges. We work with thousands of Chinese factories: ${n('categories.count')} categories and ${n('catalog.items')}+ consumer products, inspected in-house before packing.`,
+      q: 'I cannot check a supplier from here.',
+      a: `We work with thousands of Chinese factories across ${n('categories.count')} categories and ${n('catalog.items')}+ consumer products, inspected in-house before packing. You get photos and video of the goods before they ship.`,
     },
     {
-      h: 'Sourcing eats your time',
-      p: 'No more endless back-and-forth with a dozen suppliers. You pick your products directly on our online platform.',
+      q: 'Sourcing will eat my time.',
+      a: 'You pick your products directly in our online catalogs. No back-and-forth with a dozen suppliers, no sales call to sit through.',
     },
     {
-      h: 'You have never done this',
-      p: 'We handle the store organization, the shelf layout, the promotional zones and the assortment for you. First-time owners are most of our clients.',
+      q: 'I have never run a store.',
+      a: 'We handle the organization, the shelf layout, the promotional zones and the assortment. First-time owners are most of our clients.',
     },
     {
-      h: 'Stock pressure',
-      p: 'Buy small quantities, mix products at low MOQ, test your market and reorder on demand. You are not locked into a pallet of one item.',
+      q: 'I will be stuck with dead stock.',
+      a: 'Small quantities per item, mixed freely across categories. Test your market, then reorder what sells. You are never locked into a pallet of one item.',
     },
     {
-      h: 'Shipping is complicated',
-      p: 'We group and pack your multi-category order for optimized container loading, and assist with export paperwork.',
+      q: 'Shipping is complicated.',
+      a: `We group and pack your whole multi-category order for optimized container loading, into a single shipment, and assist with the export paperwork. One team follows it from the assortment plan to the freight.`,
     },
     {
-      h: 'The process is unclear',
-      p: `A standardized ${n('process.steps')}-step procedure takes you from concept to shipping in under ${n('process.weeks')} weeks, with one dedicated team.`,
+      q: 'Where is my margin?',
+      a: `Factory prices, with no marketplace margin stacked on top: you buy from ${usd('unit.cost.min.usd')} and the suggested retail is ${usd('retail.price.min.usd')} to ${usd('retail.price.max.usd')}.`,
     },
   ],
 };
 
+
 export const process = {
-  eyebrow: 'Opening a store',
   title: `${n('process.steps')} steps, from location to opening.`,
   lede:
     `A standardized process: clear, fast and transparent. From concept to ` +
@@ -226,16 +210,31 @@ export const process = {
   ],
 };
 
-export const services = {
-  eyebrow: 'Beyond supply',
-  title: 'From layout to a fully working store.',
+export const store = {
+  title: 'The store arrives complete.',
   lede:
-    'What a sourcing agent will not do for you: we design and equip the sales ' +
-    'floor, not just fill a container.',
+    'Bright, clear aisles that invite an impulse buy, everyday essentials that ' +
+    'bring people back, and the fixtures to hold them. We design and equip the ' +
+    'sales floor, not just fill a container.',
+  shots: [
+    {
+      src: 'images/store-aisle.webp',
+      alt: 'Main aisle of a variety store, gondola shelving stocked with everyday housewares',
+    },
+    {
+      src: 'images/store-endcap.webp',
+      alt: 'Promotional end display stacked with colourful household goods',
+    },
+    {
+      src: 'images/store-checkout.webp',
+      alt: 'Checkout counter with baskets and trolleys in a newly fitted store',
+    },
+  ],
+  caption: 'Illustrations of the store format we build.',
   items: [
     {
       h: 'Product selection & assortment plan',
-      p: `Access ${n('catalog.items')}+ products on our platform, with expert guidance to build a balanced, profitable mix for your market. Merchandising advice and recommendations based on international best-sellers.`,
+      p: `Access ${n('catalog.items')}+ products on our platform, with guidance to build a balanced, profitable mix for your market, based on international best-sellers.`,
     },
     {
       h: 'Custom layout & floor plan',
@@ -252,37 +251,10 @@ export const services = {
   ],
 };
 
-export const why = {
-  eyebrow: 'Why Melody',
-  title: `${n('advantages.count')} reasons buyers stay.`,
-  items: [
-    { h: 'Source pricing', p: 'Factory prices, no marketplace margin stacked on top.' },
-    { h: 'Flexible orders', p: 'Small quantities per item, mixed freely across categories.' },
-    { h: 'Online selection', p: 'Browse the catalog and build your order without a sales call.' },
-    { h: 'Renewed best-sellers', p: 'New arrivals rotate constantly, so the shelves stay worth revisiting.' },
-    { h: 'Complete support', p: 'From assortment planning to freight, one team follows the whole order.' },
-    { h: 'Smart systems', p: 'Stock and checkout systems designed for a small retail team.' },
-    { h: 'Visual support', p: 'Photos and video of the goods before they ship.' },
-    { h: 'Grouped freight', p: 'Multi-category consolidation into a single container.' },
-  ],
-};
 
-export const model = {
-  eyebrow: 'The format',
-  title: 'Why dollar stores keep winning.',
-  lede:
-    'In an uncertain economy, low-price retail wins on a simple promise: small ' +
-    'prices, useful products, a pleasant store.',
-  items: [
-    { h: 'Modern, attractive design', p: 'Bright, clear stores that encourage impulse buying and a pleasant visit.' },
-    { h: 'Unbeatable prices', p: `Everything between ${usd('retail.price.min.usd')} and ${usd('retail.price.max.usd')}, which keeps buying simple and margins high.` },
-    { h: 'Everyday products', p: 'Essentials selected to meet daily needs, which is what brings customers back.' },
-    { h: 'Frequent renewal', p: 'Regular new arrivals keep variety and footfall steady through the year.' },
-  ],
-};
+
 
 export const faq = {
-  eyebrow: 'Before you ask',
   title: 'The questions buyers actually ask.',
   items: [
     {
@@ -306,6 +278,11 @@ export const faq = {
          'minimum quantity and the lead time.',
     },
     {
+      q: 'Do you add new products?',
+      a: 'Constantly. New arrivals rotate through the catalogs all year, which is ' +
+         'what keeps the shelves worth revisiting and footfall steady.',
+    },
+    {
       q: 'Are you on Alibaba?',
       a: 'We work directly, not through marketplaces. That is what removes the intermediate margin and lets us inspect and consolidate in-house.',
     },
@@ -324,14 +301,8 @@ export const contact = {
   eyebrow: 'Get started',
   title: 'Tell us what you are opening.',
   lede:
-    'Store type, floor area, destination port, opening date. We reply by email ' +
-    `within ${n('reply.days.min')} to ${n('reply.days.max')} working days with an assortment plan and a landed cost.`,
-  offers: [
-    'Full service for opening your store',
-    'Direct, grouped supply across product categories',
-    'Product search beyond the catalog',
-    'Your own store brand or product brand',
-  ],
+    'Five fields to start. We reply by email within ' +
+    `${n('reply.days.min')} to ${n('reply.days.max')} working days with an assortment plan and a landed cost.`,
   cta: 'Become our client',
   reassurance: `A multilingual team, ${n('years.experience')} years of experience, clients across ${n('continents')} continents.`,
 };

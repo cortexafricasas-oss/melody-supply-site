@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react';
  * Assistant Melody Supply.
  *
  * Reglages issus des pratiques mesurees sur les widgets de chat :
- * - accroche proactive entre 5 et 10 s (avant 3 s c'est intrusif, apres 15 s
- *   une partie des visiteurs est deja partie) ;
- * - une seule accroche par session, memorisee dans sessionStorage ;
+ * - accroche proactive a 40 % de la page lue, pas sur un chronometre : elle
+ *   arrive quand le visiteur a compris l'offre, jamais pendant qu'il lit ;
+ * - une seule accroche par visite, memorisee dans sessionStorage ;
+ * - le bouton s'efface devant le formulaire de devis, qu'il masquait ;
  * - badge "1" facon messagerie, qui augmente sensiblement le taux de clic ;
  * - pastille verte de presence ;
  * - message d'accueil dans le fil, pas en plein ecran.
@@ -17,12 +18,16 @@ const BOT_URL = import.meta.env.VITE_BOT_URL as string | undefined;
 const BASE = import.meta.env.BASE_URL;
 
 const MAX = 500;
-const TEASER_DELAY = 7000;     // 7 s : dans la fenetre 5-10 s
-const TEASER_TIMEOUT = 14000;  // l'accroche se retire seule
+/* L'accroche ne part plus sur un chronometre mais sur la lecture : a 40 % de la
+   page, le visiteur a depasse le premier ecran et sait de quoi on parle. Un
+   minuteur, lui, se declenche pendant qu'il lit le heros. */
+const TEASER_AT = 0.4;
+const TEASER_TIMEOUT = 8000;   // l'accroche se retire seule : elle flotte
+                               // au-dessus du texte, elle doit passer vite
 const SEEN_KEY = 'melody.teaser.seen';
 const BUBBLE_GAP = 450;  // pause entre deux bulles, comme une frappe naturelle
 
-const TEASER_TEXT = 'Opening a store or placing a new order? I can walk you through it.';
+const TEASER_TEXT = 'A question? Ask me.';
 const WELCOME_TEXT =
   'Welcome. Tell me what you are working on — a new store, a restock, or specific ' +
   'products — and I will tell you exactly how we handle it.';
@@ -108,24 +113,46 @@ export function Ask() {
   const [open, setOpen] = useState(false);
   const [teaser, setTeaser] = useState(false);
   const [unread, setUnread] = useState(false);
+  const [atForm, setAtForm] = useState(false);
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const logRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Accroche proactive, une seule fois par session.
+  // Accroche proactive : une seule fois par visite, passe 40 % de la page.
   useEffect(() => {
     if (!BOT_URL || alreadySeen()) return;
-    const show = window.setTimeout(() => {
+    let hide = 0;
+    const onScroll = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total <= 0 || window.scrollY / total < TEASER_AT) return;
+      window.removeEventListener('scroll', onScroll);
       setTeaser(true);
       setUnread(true);
-    }, TEASER_DELAY);
-    const hide = window.setTimeout(() => setTeaser(false), TEASER_DELAY + TEASER_TIMEOUT);
+      // Memorise des l'affichage : une visite, une accroche, meme sans clic.
+      markSeen();
+      hide = window.setTimeout(() => setTeaser(false), TEASER_TIMEOUT);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     return () => {
-      window.clearTimeout(show);
+      window.removeEventListener('scroll', onScroll);
       window.clearTimeout(hide);
     };
+  }, []);
+
+  // Devant le formulaire de devis, le bouton s'efface : le visiteur y est deja,
+  // l'assistant n'a plus rien a lui vendre et il masquait les champs.
+  useEffect(() => {
+    const form = document.getElementById('contact');
+    if (!form) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setAtForm(entry.isIntersecting),
+      { threshold: 0.05 },
+    );
+    io.observe(form);
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -223,7 +250,7 @@ export function Ask() {
   return (
     <>
       {/* Accroche : une bulle a cote du bouton, jamais par-dessus la page. */}
-      {teaser && !open && (
+      {teaser && !open && !atForm && (
         <div className="ask__teaser">
           <button className="ask__teaser-body" onClick={openPanel}>
             {TEASER_TEXT}
@@ -238,7 +265,8 @@ export function Ask() {
       )}
 
       <button
-        className="ask__open"
+        className={open ? 'ask__open' : 'ask__open ask__open--idle'}
+        hidden={atForm && !open}
         aria-expanded={open}
         aria-controls="ask-panel"
         aria-label={open ? 'Close the assistant' : 'Ask a question'}
