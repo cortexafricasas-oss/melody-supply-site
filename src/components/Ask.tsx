@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
  * La cle DeepSeek vit dans le Worker, jamais ici.
  */
 const BOT_URL = import.meta.env.VITE_BOT_URL as string | undefined;
+const BASE = import.meta.env.BASE_URL;
 const MAX = 500;
 
 type Msg = { role: 'you' | 'bot'; text: string };
@@ -75,17 +76,32 @@ export function Ask() {
             <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2.4" fill="none" strokeLinecap="round" />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-            <path d="M21 12a8 8 0 1 1-3.2-6.4" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-            <path d="M4 20l1.6-3.6" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-            <circle cx="9" cy="12" r="1.25" fill="currentColor" />
-            <circle cx="13" cy="12" r="1.25" fill="currentColor" />
-            <circle cx="17" cy="12" r="1.25" fill="currentColor" />
-          </svg>
+          <img
+            src={`${BASE}images/assistant.webp`}
+            srcSet={`${BASE}images/assistant.webp 1x, ${BASE}images/assistant@2x.webp 2x`}
+            alt=""
+            width={160}
+            height={160}
+            loading="lazy"
+          />
         )}
       </button>
 
       <div id="ask-panel" className={open ? 'ask is-open' : 'ask'} hidden={!open}>
+        <div className="ask__head">
+          <img
+            className="ask__avatar"
+            src={`${BASE}images/assistant.webp`}
+            srcSet={`${BASE}images/assistant.webp 1x, ${BASE}images/assistant@2x.webp 2x`}
+            alt=""
+            width={160}
+            height={160}
+          />
+          <div>
+            <strong>Melody Supply</strong>
+            <span>Automated assistant</span>
+          </div>
+        </div>
         {(msgs.length > 0 || busy) && (
         <div className="ask__log" ref={logRef} aria-live="polite">
           {msgs.map((m, i) => (
