@@ -118,6 +118,27 @@
       "value": 1.1616,
       "unit": "USD/EUR",
       "source": "frankfurter.app et open.er-api.com, relevé le 10/09/2026"
+    },
+    {
+      "id": "budget.tier.5000",
+      "label": "Tranche de budget basse",
+      "value": 5000,
+      "unit": "USD",
+      "source": "tranche proposee dans le formulaire de devis (choix de conception, 11/09/2026)"
+    },
+    {
+      "id": "budget.tier.20000",
+      "label": "Tranche de budget moyenne",
+      "value": 20000,
+      "unit": "USD",
+      "source": "tranche proposee dans le formulaire de devis (choix de conception, 11/09/2026)"
+    },
+    {
+      "id": "budget.tier.50000",
+      "label": "Tranche de budget haute",
+      "value": 50000,
+      "unit": "USD",
+      "source": "tranche proposee dans le formulaire de devis (choix de conception, 11/09/2026)"
     }
   ],
   "derived": [],

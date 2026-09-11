@@ -374,3 +374,43 @@ a { color: inherit; }
 .channels dd { margin: 0.15rem 0 0; font-size: var(--step--1); }
 .channels dd a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
 .channels dd em { font-style: normal; opacity: 0.75; }
+
+/* ---------- Formulaire de devis ---------- */
+
+.form { margin-top: 2.25rem; max-width: 46rem; }
+.form__trap { position: absolute; left: -9999px; top: 0; width: 46px; height: 46px; opacity: 0; }
+
+.form__grid { display: grid; gap: 1rem; }
+@media (min-width: 44rem) { .form__grid { grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; } }
+
+.form label, .form__full { display: flex; flex-direction: column; gap: 0.35rem; }
+.form__full { margin-top: 1rem; }
+.form label span, .form__full span { font-size: var(--step--1); font-weight: 700; color: #4A4326; }
+
+.form input, .form select, .form textarea {
+  min-height: 46px; padding: 0.55rem 0.7rem;
+  background: var(--paper); color: var(--ink);
+  border: 2px solid #C79E3E; border-radius: 0;
+  font: inherit; font-size: var(--step-0);
+}
+.form textarea { min-height: 7rem; resize: vertical; }
+.form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible {
+  outline: 3px solid var(--ink); outline-offset: 1px; border-color: var(--ink);
+}
+
+.form__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+.form__actions .btn { background: var(--ink); color: var(--signal); border-color: var(--ink); }
+.form__actions .btn:hover { background: transparent; color: var(--ink); }
+.form__actions .btn:disabled { opacity: 0.55; cursor: default; }
+
+.form__error {
+  margin-top: 1rem; padding: 0.7rem 0.9rem;
+  background: #7A1A1A; color: #FFF; font-size: var(--step--1); font-weight: 700;
+}
+.form__note { margin-top: 1rem; font-size: var(--step--1); color: #4A4326; }
+
+.form__done { margin-top: 2.25rem; border-left: 4px solid var(--ink); padding-left: 1.2rem; }
+.form__done h3 { font-size: var(--step-2); }
+.form__done p { margin-top: 0.6rem; }
+
+.form__fallback { margin-top: 2rem; }

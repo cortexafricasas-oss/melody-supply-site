@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  CONTACT_MAIL, QUOTE_FORM, WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
+  WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
   WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, ctaRow, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
 import { Ask } from './components/Ask';
+import { QuoteForm } from './components/QuoteForm';
 
 const BASE = import.meta.env.BASE_URL;
 const img = (f: string) => `${BASE}images/${f}`;
@@ -33,7 +34,7 @@ function Nav() {
         {nav.links.map((l) => (
           <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
         ))}
-        <a className="btn btn--sm" href={QUOTE_FORM} target="_blank" rel="noopener">{nav.cta}</a>
+        <a className="btn btn--sm" href="#contact">{nav.cta}</a>
       </nav>
     </header>
   );
@@ -135,7 +136,7 @@ export default function App() {
             ))}
           </div>
           <div className="hero__actions">
-            <a className="btn" href={QUOTE_FORM} target="_blank" rel="noopener">{hero.cta}</a>
+            <a className="btn" href="#contact">{hero.cta}</a>
             <a className="btn btn--ghost" href="#products">{hero.ctaGhost}</a>
             <a className="btn btn--wa" href={WHATSAPP_LINK} target="_blank" rel="noopener">
               WhatsApp
@@ -263,7 +264,7 @@ export default function App() {
               <div className="card" data-reveal key={c.h}>
                 <h3>{c.h}</h3>
                 <p>{c.p}</p>
-                <p><a className="btn btn--sm" href={QUOTE_FORM} target="_blank" rel="noopener">{c.h}</a></p>
+                <p><a className="btn btn--sm" href="#contact">{c.h}</a></p>
               </div>
             ))}
           </div>
@@ -278,12 +279,7 @@ export default function App() {
             <ul className="chips chips--dark">
               {contact.offers.map((o) => <li key={o}>{o}</li>)}
             </ul>
-            <p className="quote__actions">
-              <a className="btn" href={QUOTE_FORM} target="_blank" rel="noopener">{contact.cta}</a>
-              <a className="btn btn--wa" href={WHATSAPP_LINK} target="_blank" rel="noopener">
-                {contact.ctaWhatsapp}
-              </a>
-            </p>
+            <QuoteForm />
             <dl className="channels">
               {contact.channels.map((c) => (
                 <div key={c.label}>
