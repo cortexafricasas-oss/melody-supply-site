@@ -159,7 +159,8 @@ a { color: inherit; }
 .nav__menu { display: none; width: 100%; flex-direction: column; gap: 0.25rem; padding-block: 0.75rem; }
 .nav__menu.is-open { display: flex; }
 .nav__menu a {
-  display: inline-flex; align-items: center; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; min-width: 44px;
   text-decoration: none; font-weight: 700; color: var(--paper);
 }
 .nav__menu a:hover { color: var(--signal); }
@@ -327,6 +328,10 @@ a { color: inherit; }
 .ask__open:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
 
 /* Le panneau adopte le registre clair d'une messagerie. */
+/* display:flex ecrase l'attribut hidden : il faut le retablir explicitement,
+   sinon le panneau reste affiche en permanence. */
+.ask[hidden] { display: none !important; }
+
 .ask {
   position: fixed; right: 1rem; bottom: 4.9rem; z-index: 30;
   width: min(22rem, calc(100vw - 2rem));
@@ -467,3 +472,79 @@ a { color: inherit; }
 
 .form__fallback { margin-top: 2rem; }
 
+
+/* ---------- Assistant : presence, badge, accroche ---------- */
+
+/* Le bouton porte la pastille et le badge : il faut qu'ils depassent. */
+.ask__open { overflow: visible; }
+.ask__open img { border-radius: 50%; }
+
+/* Pastille verte : le visiteur voit d'un coup d'oeil que l'assistant repond. */
+.ask__dot {
+  position: absolute; right: 1px; bottom: 1px;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: #22C55E; border: 2px solid var(--paper);
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  animation: ask-pulse 2.4s infinite;
+}
+.ask__dot--head {
+  position: absolute; right: -1px; bottom: -1px;
+  width: 11px; height: 11px; border: 2px solid #E8E7E1; animation: none;
+}
+@keyframes ask-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.ask__avatar-wrap { position: relative; display: inline-flex; flex: none; }
+
+/* Badge de message non lu : le reflexe messagerie. */
+.ask__badge {
+  position: absolute; top: -3px; left: -3px;
+  min-width: 20px; height: 20px; padding: 0 5px;
+  display: flex; align-items: center; justify-content: center;
+  background: #DC2626; color: #fff;
+  font-size: 0.68rem; font-weight: 800; line-height: 1;
+  border-radius: 10px; border: 2px solid var(--paper);
+}
+
+/* L'accroche : une bulle a gauche du bouton, qui ne recouvre pas la page. */
+.ask__teaser {
+  position: fixed; right: 1rem; bottom: 5rem; z-index: 29;
+  display: flex; align-items: flex-start; gap: 0.3rem;
+  max-width: min(17rem, calc(100vw - 2rem));
+  animation: ask-teaser-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ask-teaser-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+.ask__teaser-body {
+  flex: 1; text-align: left; cursor: pointer;
+  padding: 0.65rem 0.85rem;
+  background: var(--paper); color: var(--ink);
+  border: none; border-radius: 16px 16px 6px 16px;
+  font: inherit; font-size: var(--step--1); line-height: 1.45;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
+}
+.ask__teaser-body:hover { background: #fff; }
+
+.ask__teaser-close {
+  flex: none; width: 44px; height: 44px; padding: 0; margin: -11px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; color: var(--paper);
+}
+/* Zone tactile de 44px, pastille visible de 22px : conforme sans etre lourd. */
+.ask__teaser-close::before {
+  content: ''; position: absolute; width: 22px; height: 22px;
+  background: var(--ink-2); border: 1px solid #4A4E45; border-radius: 50%;
+}
+.ask__teaser-close svg { position: relative; }
+.ask__teaser-close:hover::before { background: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ask__dot { animation: none; }
+  .ask__teaser { animation: none; }
+}

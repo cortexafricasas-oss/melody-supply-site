@@ -1,28 +1,93 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Bot de questions. N'apparait que si VITE_BOT_URL est defini au build :
- * sans service intermediaire, pas de bouton, donc aucune promesse non tenue.
- * La cle DeepSeek vit dans le Worker, jamais ici.
+ * Assistant Melody Supply.
+ *
+ * Reglages issus des pratiques mesurees sur les widgets de chat :
+ * - accroche proactive entre 5 et 10 s (avant 3 s c'est intrusif, apres 15 s
+ *   une partie des visiteurs est deja partie) ;
+ * - une seule accroche par session, memorisee dans sessionStorage ;
+ * - badge "1" facon messagerie, qui augmente sensiblement le taux de clic ;
+ * - pastille verte de presence ;
+ * - message d'accueil dans le fil, pas en plein ecran.
+ *
+ * La cle DeepSeek n'est jamais ici : le site appelle une fonction serveur.
  */
 const BOT_URL = import.meta.env.VITE_BOT_URL as string | undefined;
 const BASE = import.meta.env.BASE_URL;
+
 const MAX = 500;
+const TEASER_DELAY = 7000;     // 7 s : dans la fenetre 5-10 s
+const TEASER_TIMEOUT = 14000;  // l'accroche se retire seule
+const SEEN_KEY = 'melody.teaser.seen';
+
+const TEASER_TEXT = 'Hi! Opening a store or looking for products? Ask me anything.';
+const WELCOME_TEXT =
+  'Hi! I can answer about products, minimum order, shipping or opening a store.';
 
 type Msg = { role: 'you' | 'bot'; text: string };
 
+function alreadySeen(): boolean {
+  try {
+    return sessionStorage.getItem(SEEN_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markSeen(): void {
+  try {
+    sessionStorage.setItem(SEEN_KEY, '1');
+  } catch {
+    /* navigation privee ou stockage bloque : sans consequence */
+  }
+}
+
 export function Ask() {
   const [open, setOpen] = useState(false);
+  const [teaser, setTeaser] = useState(false);
+  const [unread, setUnread] = useState(false);
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const logRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Accroche proactive, une seule fois par session.
+  useEffect(() => {
+    if (!BOT_URL || alreadySeen()) return;
+    const show = window.setTimeout(() => {
+      setTeaser(true);
+      setUnread(true);
+    }, TEASER_DELAY);
+    const hide = window.setTimeout(() => setTeaser(false), TEASER_DELAY + TEASER_TIMEOUT);
+    return () => {
+      window.clearTimeout(show);
+      window.clearTimeout(hide);
+    };
+  }, []);
 
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight, behavior: 'smooth' });
-  }, [msgs, busy]);
+  }, [msgs, busy, open]);
 
   if (!BOT_URL) return null;
+
+  function openPanel() {
+    setOpen(true);
+    setTeaser(false);
+    setUnread(false);
+    markSeen();
+    // Le fil s'ouvre sur un mot d'accueil, pas sur un vide.
+    setMsgs((m) => (m.length ? m : [{ role: 'bot', text: WELCOME_TEXT }]));
+    window.setTimeout(() => inputRef.current?.focus(), 120);
+  }
+
+  function dismissTeaser() {
+    setTeaser(false);
+    setUnread(false);
+    markSeen();
+  }
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
@@ -63,17 +128,32 @@ export function Ask() {
 
   return (
     <>
+      {/* Accroche : une bulle a cote du bouton, jamais par-dessus la page. */}
+      {teaser && !open && (
+        <div className="ask__teaser">
+          <button className="ask__teaser-body" onClick={openPanel}>
+            {TEASER_TEXT}
+          </button>
+          <button className="ask__teaser-close" onClick={dismissTeaser} aria-label="Dismiss">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="3"
+                    fill="none" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       <button
         className="ask__open"
         aria-expanded={open}
         aria-controls="ask-panel"
         aria-label={open ? 'Close the assistant' : 'Ask a question'}
-        title={open ? 'Close' : 'Ask a question'}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => (open ? setOpen(false) : openPanel())}
       >
         {open ? (
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2.6"
+                  fill="none" strokeLinecap="round" />
           </svg>
         ) : (
           <img
@@ -82,27 +162,31 @@ export function Ask() {
             alt=""
             width={160}
             height={160}
-            loading="lazy"
           />
         )}
+        {!open && <span className="ask__dot" aria-hidden="true" />}
+        {!open && unread && <span className="ask__badge" aria-hidden="true">1</span>}
       </button>
 
       <div id="ask-panel" className={open ? 'ask is-open' : 'ask'} hidden={!open}>
         <div className="ask__head">
-          <img
-            className="ask__avatar"
-            src={`${BASE}images/assistant.webp`}
-            srcSet={`${BASE}images/assistant.webp 1x, ${BASE}images/assistant@2x.webp 2x`}
-            alt=""
-            width={160}
-            height={160}
-          />
+          <span className="ask__avatar-wrap">
+            <img
+              className="ask__avatar"
+              src={`${BASE}images/assistant.webp`}
+              srcSet={`${BASE}images/assistant.webp 1x, ${BASE}images/assistant@2x.webp 2x`}
+              alt=""
+              width={160}
+              height={160}
+            />
+            <i className="ask__dot ask__dot--head" aria-hidden="true" />
+          </span>
           <div>
             <strong>Melody Supply</strong>
-            <span>Automated assistant</span>
+            <span>Online · Automated assistant</span>
           </div>
         </div>
-        {(msgs.length > 0 || busy) && (
+
         <div className="ask__log" ref={logRef} aria-live="polite">
           {msgs.map((m, i) => (
             <p key={i} className={m.role === 'you' ? 'ask__you' : 'ask__bot'}>
@@ -115,12 +199,12 @@ export function Ask() {
             </p>
           )}
         </div>
-        )}
 
         <form className="ask__form" onSubmit={send}>
           <label className="sr-only" htmlFor="ask-input">Your question</label>
           <input
             id="ask-input"
+            ref={inputRef}
             value={q}
             maxLength={MAX}
             onChange={(e) => setQ(e.target.value)}
