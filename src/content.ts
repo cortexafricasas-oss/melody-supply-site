@@ -162,7 +162,7 @@ export const sourcing = {
     line: 'Guangzhou, Shenzhen, Qingdao, Yiwu — the four cities the sourcing runs through.',
     cta: 'Watch',
     poster: 'images/sourcing-cities-poster.webp',
-    src: 'video/sourcing-cities.mp4',
+    src: 'video/sourcing-cities-2.mp4',
   },
   forWhom: {
     h: 'Built for',
