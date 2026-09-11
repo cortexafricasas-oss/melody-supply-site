@@ -42,7 +42,7 @@ export const nav = {
     { label: 'Why us', href: '#why' },
     { label: 'FAQ', href: '#faq' },
   ],
-  cta: 'Get a quote',
+  cta: 'Contact us',
 };
 
 export const hero = {
@@ -57,8 +57,8 @@ export const hero = {
     { v: `${n('years.experience')} yrs`, l: 'in the Chinese supply chain' },
     { v: `${n('warehouse.sqm')} sqm`, l: 'of own warehousing' },
   ],
-  cta: 'Get a quote',
-  ctaGhost: `See the ${n('process.steps')}-step process`,
+  cta: 'Start your store',
+  ctaGhost: 'Discover the products',
 };
 
 export const products = {
@@ -241,8 +241,17 @@ export const contact = {
     'Product search beyond the catalogue',
     'Your own store brand or product brand',
   ],
-  cta: 'Get a quote',
+  cta: 'Become our client',
   reassurance: `A multilingual team, ${n('years.experience')} years of experience, clients across ${n('continents')} continents.`,
+};
+
+export const ctaRow = {
+  title: 'Three ways to start.',
+  items: [
+    { h: 'Open your store', p: 'Full setup: assortment, layout, custom shelving and equipment, shipped together.' },
+    { h: 'Order our products', p: `Buy from the catalogue across ${n('categories.count')} categories, mixed freely in one container.` },
+    { h: 'Product sourcing', p: 'Looking for something outside the catalogue? We find the factory and negotiate for you.' },
+  ],
 };
 
 export const foot = {

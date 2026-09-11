@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  CONTACT_MAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, foot, fact,
+  CONTACT_MAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, ctaRow, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
+import { Ask } from './components/Ask';
 
 const BASE = import.meta.env.BASE_URL;
 const img = (f: string) => `${BASE}images/${f}`;
@@ -136,7 +137,7 @@ export default function App() {
           </div>
           <div className="hero__actions">
             <a className="btn" href={CONTACT_MAIL}>{hero.cta}</a>
-            <a className="btn btn--ghost" href="#process">{hero.ctaGhost}</a>
+            <a className="btn btn--ghost" href="#products">{hero.ctaGhost}</a>
           </div>
         </div>
       </div>
@@ -252,6 +253,20 @@ export default function App() {
           </div>
         </section>
 
+        {/* Les trois actions recurrentes du site d'origine */}
+        <section className="section wrap" id="start">
+          <h2 className="section__title" data-reveal>{ctaRow.title}</h2>
+          <div className="cards cards--3">
+            {ctaRow.items.map((c) => (
+              <div className="card" data-reveal key={c.h}>
+                <h3>{c.h}</h3>
+                <p>{c.p}</p>
+                <p><a className="btn btn--sm" href={CONTACT_MAIL}>{c.h}</a></p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Contact */}
         <section className="quote" id="contact">
           <div className="section wrap">
@@ -268,6 +283,8 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      <Ask />
 
       <footer className="foot wrap">
         <div className="foot__row">
