@@ -365,6 +365,9 @@ export default function App() {
               </li>
             ))}
           </ul>
+
+          <p className="foot__legal">{foot.legal}</p>
+          <p className="foot__legal">{foot.terms}</p>
         </div>
       </footer>
     </>

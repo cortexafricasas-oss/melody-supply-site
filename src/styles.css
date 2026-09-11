@@ -690,3 +690,27 @@ a { color: inherit; }
 }
 .vmodal__close:hover { background: var(--paper); }
 .vmodal__close:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+
+/* ---------- Ajustements de finition ---------- */
+
+/* Dans le heros, le vert de WhatsApp mettait trois codes couleur cote a cote.
+   Bouton neutre, et le vert garde son seul role utile : signaler une presence. */
+.hero__actions .btn--wa {
+  background: transparent; border-color: rgba(244, 243, 239, 0.4); color: var(--paper);
+}
+.hero__actions .btn--wa:hover {
+  background: var(--paper); border-color: var(--paper); color: var(--ink);
+}
+.hero__actions .btn--wa::before {
+  content: ''; display: inline-block; vertical-align: 0.08em;
+  width: 8px; height: 8px; margin-right: 0.55rem; border-radius: 50%;
+  background: #25D366;
+}
+
+/* Mentions de bas de page : aucune grande maison ne termine sans elles. */
+.foot__legal {
+  margin-top: 2.5rem; padding-top: 1.2rem;
+  border-top: 1px solid #383B33;
+  font-size: var(--step--1); color: var(--text-dim); max-width: 46rem;
+}
+.foot__legal + .foot__legal { margin-top: 0.35rem; padding-top: 0; border-top: 0; }

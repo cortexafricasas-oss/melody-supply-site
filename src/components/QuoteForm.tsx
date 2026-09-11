@@ -173,7 +173,7 @@ export function QuoteForm() {
         </label>
 
         <label>
-          <span>Store floor area (sqm)</span>
+          <span>Store floor area (sq ft or sqm)</span>
           <input name="area" maxLength={40} inputMode="numeric" />
         </label>
       </div>

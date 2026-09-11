@@ -167,6 +167,20 @@
       "value": 11.62,
       "unit": "USD",
       "source": "10 EUR — liens catalogues transmis par le fondateur le 11/09/2026, converti de l'EUR au taux 1.1616 (10/09/2026)"
+    },
+    {
+      "id": "warehouse.sqft",
+      "label": "Surface d'entrepôts en pieds carrés",
+      "value": 323000,
+      "unit": "sq ft",
+      "source": "conversion de 30 000 m² au taux de 10,7639 pi²/m² (322 917), arrondi au millier"
+    },
+    {
+      "id": "layout.minimum.sqft",
+      "label": "Surface du plan 2D offert, en pieds carrés",
+      "value": 1076,
+      "unit": "sq ft",
+      "source": "conversion de 100 m² au taux de 10,7639 pi²/m², arrondi à l'unité"
     }
   ],
   "derived": [],
@@ -174,7 +188,9 @@
     2,
     3,
     6,
-    2026
+    2026,
+    1200,
+    629
   ],
   "ignore_patterns": [
     "\\d{1,2}\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{4}",

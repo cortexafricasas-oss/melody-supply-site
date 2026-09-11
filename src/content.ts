@@ -44,7 +44,7 @@ export const nav = {
   logoAlt: 'Melody Supply - easy sourcing from China',
   links: [
     { label: 'Products', href: '#products' },
-    { label: 'Catalogue', href: '#catalogue' },
+    { label: 'Catalog', href: '#catalogue' },
     { label: 'Sourcing', href: '#sourcing' },
     { label: 'Process', href: '#process' },
     { label: 'Services', href: '#services' },
@@ -61,10 +61,10 @@ export const hero = {
     `${n('categories.count')} categories, custom shelving, store layout and full ` +
     'equipment. One supplier, one container.',
   stats: [
-    { v: `${n('catalog.items')}+`, l: 'products in catalogue' },
+    { v: `${n('catalog.items')}+`, l: 'products in catalog' },
     { v: `${n('categories.count')}`, l: 'product categories' },
-    { v: `${n('years.experience')} yrs`, l: 'in the Chinese supply chain' },
-    { v: `${n('warehouse.sqm')} sqm`, l: 'of own warehousing' },
+    { v: `${n('years.experience')} years`, l: 'in the Chinese supply chain' },
+    { v: `${n('warehouse.sqft')} sq ft`, l: 'of own warehousing' },
     { v: `< ${n('process.weeks')} weeks`, l: 'concept to shipping' },
   ],
   cta: 'Start your store',
@@ -80,7 +80,7 @@ export const products = {
     `across categories - the only condition is a total order of approx. ${usd('order.minimum.usd')}, ` +
     'shipping excluded.',
   categories: [
-    'Bathroom', 'Kitchen', 'Toys', 'Beauty', 'Stationery', 'Jewellery',
+    'Bathroom', 'Kitchen', 'Toys', 'Beauty', 'Stationery', 'Jewelry',
     'Electronics', 'Ceramics', 'Plastics', 'Glass', 'Enamel', 'Stainless steel',
     'Bamboo & wood', 'Knitted cotton', 'Household paper', 'Hardware',
     'Hygiene & cleaning', 'Everyday essentials', 'Handcraft', 'Pendants',
@@ -93,7 +93,7 @@ export const products = {
     },
     {
       h: 'Real stock, fast dispatch',
-      p: `Our own ${n('warehouse.sqm')} sqm of warehousing keeps products available at stable prices and orders moving quickly.`,
+      p: `Our own ${n('warehouse.sqft')} sq ft (${n('warehouse.sqm')} sqm) of warehousing keeps products available at stable prices and orders moving quickly.`,
     },
     {
       h: 'Factory pricing, checked quality',
@@ -116,7 +116,7 @@ export const products = {
 
 export const catalogue = {
   eyebrow: 'Browse before you ask',
-  title: 'Two live catalogues. Open access.',
+  title: 'Two live catalogs. Open access.',
   lede:
     'Look through the actual products before contacting us. No account needed — ' +
     'and none can be created yet, so browsing is open to everyone.',
@@ -126,14 +126,14 @@ export const catalogue = {
       price: `approx. ${usd('unit.cost.min.usd')} – ${usd('unit.cost.max.usd')} per item`,
       p: 'Everyday items for one-price and variety stores.',
       href: 'https://ww.zfxh688.com',
-      cta: 'Open the catalogue',
+      cta: 'Open the catalog',
     },
     {
       h: 'Supermarket line',
       price: `approx. ${usd('super.price.min.usd')} – ${usd('super.price.max.usd')} per item`,
       p: 'A wider range at mixed price points, for supermarkets and larger formats.',
       href: 'https://hwmy.taohuo999.com',
-      cta: 'Open the catalogue',
+      cta: 'Open the catalog',
     },
   ],
   tips: [
@@ -142,7 +142,7 @@ export const catalogue = {
     `Total order minimum: approx. ${usd('order.minimum.usd')}, shipping excluded. Mix items freely in small quantities.`,
   ],
   note:
-    'Accounts are not open yet — browse the catalogues, then send us your list ' +
+    'Accounts are not open yet — browse the catalogs, then send us your list ' +
     'or ask us anything.',
 };
 
@@ -192,7 +192,7 @@ export const objections = {
     },
     {
       h: 'You have never done this',
-      p: 'We handle the store organisation, the shelf layout, the promotional zones and the assortment for you. First-time owners are most of our clients.',
+      p: 'We handle the store organization, the shelf layout, the promotional zones and the assortment for you. First-time owners are most of our clients.',
     },
     {
       h: 'Stock pressure',
@@ -200,7 +200,7 @@ export const objections = {
     },
     {
       h: 'Shipping is complicated',
-      p: 'We group and pack your multi-category order for optimised container loading, and assist with export paperwork.',
+      p: 'We group and pack your multi-category order for optimized container loading, and assist with export paperwork.',
     },
     {
       h: 'The process is unclear',
@@ -240,7 +240,7 @@ export const services = {
     },
     {
       h: 'Custom layout & floor plan',
-      p: `A 2D plan optimised for customer flow and key zones - free from ${n('layout.minimum.sqm')} sqm. Detailed drawings for wall and centre shelving.`,
+      p: `A 2D plan optimized for customer flow and key zones - free from ${n('layout.minimum.sqft')} sq ft (${n('layout.minimum.sqm')} sqm). Detailed drawings for wall and center shelving.`,
     },
     {
       h: 'Custom shelf manufacturing',
@@ -259,7 +259,7 @@ export const why = {
   items: [
     { h: 'Source pricing', p: 'Factory prices, no marketplace margin stacked on top.' },
     { h: 'Flexible orders', p: 'Small quantities per item, mixed freely across categories.' },
-    { h: 'Online selection', p: 'Browse the catalogue and build your order without a sales call.' },
+    { h: 'Online selection', p: 'Browse the catalog and build your order without a sales call.' },
     { h: 'Renewed best-sellers', p: 'New arrivals rotate constantly, so the shelves stay worth revisiting.' },
     { h: 'Complete support', p: 'From assortment planning to freight, one team follows the whole order.' },
     { h: 'Smart systems', p: 'Stock and checkout systems designed for a small retail team.' },
@@ -308,7 +308,7 @@ export const faq = {
     },
     {
       q: 'Do you supply shelving as well as goods?',
-      a: `Yes. Shelving and fixtures are manufactured to your layout and shipped with the goods. The 2D layout plan is free from ${n('layout.minimum.sqm')} sqm.`,
+      a: `Yes. Shelving and fixtures are manufactured to your layout and shipped with the goods. The 2D layout plan is free from ${n('layout.minimum.sqft')} sq ft (${n('layout.minimum.sqm')} sqm).`,
     },
   ],
 };
@@ -322,7 +322,7 @@ export const contact = {
   offers: [
     'Full service for opening your store',
     'Direct, grouped supply across product categories',
-    'Product search beyond the catalogue',
+    'Product search beyond the catalog',
     'Your own store brand or product brand',
   ],
   cta: 'Become our client',
@@ -332,6 +332,11 @@ export const contact = {
 export const foot = {
   company: 'Melody Supply',
   tagline: 'Easy sourcing from China',
+  legal: `© ${new Date().getFullYear()} Melody Supply. All rights reserved.`,
+  terms:
+    'Figures shown are indicative. Prices, quantities and lead times are ' +
+    'confirmed in writing before any order. Details you send us are used only ' +
+    'to answer your request.',
   reach: [
     { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'French, English, Spanish, Arabic' },
     { icon: 'phone', label: 'Phone', value: PHONE_NUMBER, href: PHONE_LINK, note: '' },
