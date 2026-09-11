@@ -202,7 +202,7 @@ export const objections = {
     },
     {
       h: 'The process is unclear',
-      p: `A standardised ${n('process.steps')}-step procedure takes you from concept to shipping in under ${n('process.weeks')} weeks, with one dedicated team.`,
+      p: `A standardized ${n('process.steps')}-step procedure takes you from concept to shipping in under ${n('process.weeks')} weeks, with one dedicated team.`,
     },
   ],
 };
@@ -211,7 +211,7 @@ export const process = {
   eyebrow: 'Opening a store',
   title: `${n('process.steps')} steps, from location to opening.`,
   lede:
-    `A standardised process: clear, fast and transparent. From concept to ` +
+    `A standardized process: clear, fast and transparent. From concept to ` +
     `shipping in under ${n('process.weeks')} weeks, with one dedicated team from the ` +
     'site plan to the goods arriving at your warehouse.',
   steps: [
