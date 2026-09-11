@@ -3,6 +3,7 @@ import {
   CONTACT_MAIL, nav, hero, products, sourcing, process, services, why, model, faq, contact, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
+import { startMotion } from './lib/reveal';
 
 const BASE = import.meta.env.BASE_URL;
 const img = (f: string) => `${BASE}images/${f}`;
@@ -53,7 +54,7 @@ function Process() {
   return (
     <ol className="route" ref={ref}>
       {process.steps.map((s, i) => (
-        <li className="step" key={s.h}>
+        <li className="step" data-reveal key={s.h}>
           <span className="step__n" aria-hidden="true">{i + 1}</span>
           <h3>{s.h}</h3>
           <p>{s.p}</p>
@@ -77,7 +78,7 @@ function Categories() {
 
   return (
     <ul className="cats" ref={ref}>
-      {products.categories.map((c) => <li key={c}>{c}</li>)}
+      {products.categories.map((c) => <li data-reveal key={c}>{c}</li>)}
     </ul>
   );
 }
@@ -97,7 +98,7 @@ function Why() {
   return (
     <div className="cards cards--4" ref={ref}>
       {why.items.map((w) => (
-        <div className="card" key={w.h}>
+        <div className="card" data-reveal key={w.h}>
           <h3>{w.h}</h3>
           <p>{w.p}</p>
         </div>
@@ -107,8 +108,12 @@ function Why() {
 }
 
 export default function App() {
+  useEffect(() => startMotion(), []);
+
   return (
     <>
+      <div className="progress" aria-hidden="true" />
+
       <div className="hero" id="top">
         <div className="hero__media" aria-hidden="true">
           <picture>
@@ -140,12 +145,12 @@ export default function App() {
         {/* Produits */}
         <section className="section wrap" id="products">
           <p className="eyebrow">{products.eyebrow}</p>
-          <h2 className="section__title">{products.title}</h2>
-          <p className="section__lede">{products.lede}</p>
+          <h2 className="section__title" data-reveal>{products.title}</h2>
+          <p className="section__lede" data-reveal>{products.lede}</p>
           <Categories />
           <div className="cards cards--2">
             {products.points.map((p) => (
-              <div className="card" key={p.h}>
+              <div className="card" data-reveal key={p.h}>
                 <h3>{p.h}</h3>
                 <p>{p.p}</p>
               </div>
@@ -161,11 +166,11 @@ export default function App() {
         <section className="light" id="sourcing">
           <div className="section wrap">
             <p className="eyebrow">{sourcing.eyebrow}</p>
-            <h2 className="section__title">{sourcing.title}</h2>
-            <p className="section__lede">{sourcing.lede}</p>
+            <h2 className="section__title" data-reveal>{sourcing.title}</h2>
+            <p className="section__lede" data-reveal>{sourcing.lede}</p>
             <div className="cards cards--3">
               {sourcing.items.map((s) => (
-                <div className="card" key={s.h}>
+                <div className="card" data-reveal key={s.h}>
                   <h3>{s.h}</h3>
                   <p>{s.p}</p>
                 </div>
@@ -181,8 +186,8 @@ export default function App() {
         {/* Le processus : moment memorable */}
         <section className="section wrap" id="process">
           <p className="eyebrow">{process.eyebrow}</p>
-          <h2 className="section__title">{process.title}</h2>
-          <p className="section__lede">{process.lede}</p>
+          <h2 className="section__title" data-reveal>{process.title}</h2>
+          <p className="section__lede" data-reveal>{process.lede}</p>
           <Process />
         </section>
 
@@ -194,11 +199,11 @@ export default function App() {
         {/* Services */}
         <section className="section wrap" id="services">
           <p className="eyebrow">{services.eyebrow}</p>
-          <h2 className="section__title">{services.title}</h2>
-          <p className="section__lede">{services.lede}</p>
+          <h2 className="section__title" data-reveal>{services.title}</h2>
+          <p className="section__lede" data-reveal>{services.lede}</p>
           <div className="cards cards--2">
             {services.items.map((s) => (
-              <div className="card" key={s.h}>
+              <div className="card" data-reveal key={s.h}>
                 <h3>{s.h}</h3>
                 <p>{s.p}</p>
               </div>
@@ -210,11 +215,11 @@ export default function App() {
         <section className="light">
           <div className="section wrap">
             <p className="eyebrow">{model.eyebrow}</p>
-            <h2 className="section__title">{model.title}</h2>
-            <p className="section__lede">{model.lede}</p>
+            <h2 className="section__title" data-reveal>{model.title}</h2>
+            <p className="section__lede" data-reveal>{model.lede}</p>
             <div className="cards cards--4">
               {model.items.map((m) => (
-                <div className="card" key={m.h}>
+                <div className="card" data-reveal key={m.h}>
                   <h3>{m.h}</h3>
                   <p>{m.p}</p>
                 </div>
@@ -226,7 +231,7 @@ export default function App() {
         {/* Pourquoi nous */}
         <section className="section wrap" id="why">
           <p className="eyebrow">{why.eyebrow}</p>
-          <h2 className="section__title">{why.title}</h2>
+          <h2 className="section__title" data-reveal>{why.title}</h2>
           <Why />
         </section>
 
@@ -234,10 +239,10 @@ export default function App() {
         <section className="light" id="faq">
           <div className="section wrap">
             <p className="eyebrow">{faq.eyebrow}</p>
-            <h2 className="section__title">{faq.title}</h2>
+            <h2 className="section__title" data-reveal>{faq.title}</h2>
             <div className="faq">
               {faq.items.map((f) => (
-                <details key={f.q}>
+                <details data-reveal key={f.q}>
                   <summary>{f.q}</summary>
                   <p>{f.a}</p>
                 </details>
@@ -250,8 +255,8 @@ export default function App() {
         <section className="quote" id="contact">
           <div className="section wrap">
             <p className="eyebrow">{contact.eyebrow}</p>
-            <h2 className="section__title">{contact.title}</h2>
-            <p className="section__lede">{contact.lede}</p>
+            <h2 className="section__title" data-reveal>{contact.title}</h2>
+            <p className="section__lede" data-reveal>{contact.lede}</p>
             <ul className="chips chips--dark">
               {contact.offers.map((o) => <li key={o}>{o}</li>)}
             </ul>

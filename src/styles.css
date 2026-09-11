@@ -248,3 +248,59 @@ a { color: inherit; }
 .faq details p { margin-top: 0.6rem; }
 
 .quote__reassure { margin-top: 1.5rem; font-size: var(--step--1); color: #4A4326; }
+
+/* ---------- Motion au défilement ---------- */
+
+/* Révélation : opacité + léger déplacement. Le délai en cascade est posé en JS. */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal][data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Les catégories arrivent d'un cran plus court : elles sont nombreuses. */
+.cats [data-reveal] { transform: translate3d(0, 8px, 0) scale(0.97); }
+.cats [data-reveal][data-revealed='true'] { transform: none; }
+
+/* Parallaxe du héros : l'image descend plus lentement que le texte. */
+.hero__media {
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1.06);
+}
+
+/* Barre de progression de lecture. */
+.progress {
+  position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 20;
+  background: var(--signal);
+  transform: scaleX(0); transform-origin: left;
+}
+
+/* Barre de navigation : fond opaque dès qu'on quitte le haut de page. */
+.nav {
+  position: sticky; top: 0;
+  transition: background 0.25s ease, padding 0.25s ease, box-shadow 0.25s ease;
+}
+.nav.is-stuck {
+  background: rgba(30, 32, 26, 0.94);
+  backdrop-filter: blur(10px);
+  padding-block: 0.6rem;
+  box-shadow: 0 1px 0 #383B33;
+}
+
+/* Le bandeau image glisse légèrement au survol du défilement. */
+.band img { transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.band:hover img { transform: scale(1.03); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .hero__media { transform: none !important; }
+  .progress { display: none; }
+  .nav { position: static; }
+}
