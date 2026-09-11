@@ -150,13 +150,20 @@ export const sourcing = {
   eyebrow: 'Sourcing service',
   title: 'Your buying team in China.',
   lede:
-    'For businesses that want to buy in China without the language barrier, the ' +
-    'local practices or the travel. We act as your purchasing office.',
+    'For businesses that want to buy in China without the local practices or ' +
+    'the travel. We act as your purchasing office.',
   items: [
     { h: 'Reliable supplier search', p: 'We select factories on capability, quality and stability - not on a marketplace listing.' },
     { h: 'Price negotiation', p: 'We negotiate directly with the factory, at source prices, with no middleman margin.' },
     { h: 'Full project management', p: 'Follow-up, inspection, consolidation and a single shipment for the whole order.' },
   ],
+  video: {
+    title: 'A minute with our team in China.',
+    line: 'Guangzhou, Shenzhen, Qingdao, Yiwu — the four cities the sourcing runs through.',
+    cta: 'Watch',
+    poster: 'images/sourcing-cities-poster.webp',
+    src: 'video/sourcing-cities.mp4',
+  },
   forWhom: {
     h: 'Built for',
     list: [

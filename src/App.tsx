@@ -8,6 +8,7 @@ import { startMotion } from './lib/reveal';
 import { Ask } from './components/Ask';
 import { QuoteForm } from './components/QuoteForm';
 import { Icon } from './components/Icon';
+import { VideoNote } from './components/VideoNote';
 
 const BASE = import.meta.env.BASE_URL;
 const img = (f: string) => `${BASE}images/${f}`;
@@ -211,6 +212,13 @@ export default function App() {
                 </div>
               ))}
             </div>
+            <VideoNote
+              title={sourcing.video.title}
+              line={sourcing.video.line}
+              cta={sourcing.video.cta}
+              poster={sourcing.video.poster}
+              src={sourcing.video.src}
+            />
             <p className="eyebrow" style={{ marginTop: '3rem' }}>{sourcing.forWhom.h}</p>
             <ul className="chips">
               {sourcing.forWhom.list.map((i) => <li key={i}>{i}</li>)}
