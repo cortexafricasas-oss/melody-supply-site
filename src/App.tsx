@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  CONTACT_MAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, ctaRow, foot, fact,
+  CONTACT_MAIL, QUOTE_FORM, WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
+  WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, ctaRow, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
@@ -32,7 +33,7 @@ function Nav() {
         {nav.links.map((l) => (
           <a key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
         ))}
-        <a className="btn btn--sm" href={CONTACT_MAIL}>{nav.cta}</a>
+        <a className="btn btn--sm" href={QUOTE_FORM} target="_blank" rel="noopener">{nav.cta}</a>
       </nav>
     </header>
   );
@@ -113,8 +114,6 @@ export default function App() {
 
   return (
     <>
-      <div className="progress" aria-hidden="true" />
-
       <div className="hero" id="top">
         <div className="hero__media" aria-hidden="true">
           <picture>
@@ -136,8 +135,11 @@ export default function App() {
             ))}
           </div>
           <div className="hero__actions">
-            <a className="btn" href={CONTACT_MAIL}>{hero.cta}</a>
+            <a className="btn" href={QUOTE_FORM} target="_blank" rel="noopener">{hero.cta}</a>
             <a className="btn btn--ghost" href="#products">{hero.ctaGhost}</a>
+            <a className="btn btn--wa" href={WHATSAPP_LINK} target="_blank" rel="noopener">
+              WhatsApp
+            </a>
           </div>
         </div>
       </div>
@@ -261,7 +263,7 @@ export default function App() {
               <div className="card" data-reveal key={c.h}>
                 <h3>{c.h}</h3>
                 <p>{c.p}</p>
-                <p><a className="btn btn--sm" href={CONTACT_MAIL}>{c.h}</a></p>
+                <p><a className="btn btn--sm" href={QUOTE_FORM} target="_blank" rel="noopener">{c.h}</a></p>
               </div>
             ))}
           </div>
@@ -276,9 +278,26 @@ export default function App() {
             <ul className="chips chips--dark">
               {contact.offers.map((o) => <li key={o}>{o}</li>)}
             </ul>
-            <p style={{ marginTop: '2rem' }}>
-              <a className="btn" href={CONTACT_MAIL}>{contact.cta}</a>
+            <p className="quote__actions">
+              <a className="btn" href={QUOTE_FORM} target="_blank" rel="noopener">{contact.cta}</a>
+              <a className="btn btn--wa" href={WHATSAPP_LINK} target="_blank" rel="noopener">
+                {contact.ctaWhatsapp}
+              </a>
             </p>
+            <dl className="channels">
+              {contact.channels.map((c) => (
+                <div key={c.label}>
+                  <dt>{c.label}</dt>
+                  <dd>
+                    {c.label === 'WhatsApp' && <a href={WHATSAPP_LINK} target="_blank" rel="noopener">{c.value}</a>}
+                    {c.label === 'Phone' && <a href={PHONE_LINK}>{c.value}</a>}
+                    {c.label === 'Email' && <a href={`mailto:${CONTACT_EMAIL}`}>{c.value}</a>}
+                    {c.label === 'WeChat' && <span>{c.value}</span>}
+                    {c.note && <em> — {c.note}</em>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
             <p className="quote__reassure">{contact.reassurance}</p>
           </div>
         </section>
@@ -291,6 +310,9 @@ export default function App() {
           <strong>{foot.company}</strong>
           <span>{foot.tagline}</span>
           <a href={`mailto:${foot.email}`}>{foot.email}</a>
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener">WhatsApp {WHATSAPP_NUMBER}</a>
+          <a href={PHONE_LINK}>{PHONE_NUMBER}</a>
+          <span>WeChat {WECHAT_ID}</span>
           {foot.socials.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
           ))}

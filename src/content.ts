@@ -21,16 +21,22 @@ export const FX_NOTE =
   '(rate of 10 September 2026) and move with the exchange rate. ' +
   'Euro prices are the contractual reference.';
 
-export const CONTACT_MAIL =
-  'mailto:melodychina0505@gmail.com' +
-  '?subject=' + encodeURIComponent('Quote request - Melody Supply') +
-  '&body=' + encodeURIComponent(
-    'Store type (dollar store, discount, bazaar, supermarket, online):\n\n' +
-    'Floor area (sqm):\n\n' +
-    'Destination country / port:\n\n' +
-    'What you need (products only, sourcing, or full store setup):\n\n' +
-    'Target opening date:\n',
-  );
+/** Le formulaire de devis reste celui du site d'origine (WPForms) : il collecte
+ *  pays, objectif, budget, local et superficie. Un site statique ne peut pas
+ *  recevoir de soumission ; on y renvoie plutot que d'en promettre un faux. */
+export const QUOTE_FORM = 'https://melodychinasupply.com/?page_id=789';
+
+/** WhatsApp : le numero annonce sur le site, multilingue. */
+export const WHATSAPP_NUMBER = '+86 131 8895 9052';
+export const WHATSAPP_LINK =
+  'https://wa.me/8613188959052?text=' +
+  encodeURIComponent('Hello Melody Supply, I would like a quote for my store.');
+
+export const PHONE_NUMBER = '+86 175 5135 9860';
+export const PHONE_LINK = 'tel:+8617551359860';
+export const WECHAT_ID = 'Melody_3565';
+export const CONTACT_EMAIL = 'melodychina0505@gmail.com';
+export const CONTACT_MAIL = QUOTE_FORM;
 
 export const nav = {
   logoAlt: 'Melody Supply - easy sourcing from China',
@@ -242,6 +248,13 @@ export const contact = {
     'Your own store brand or product brand',
   ],
   cta: 'Become our client',
+  ctaWhatsapp: 'Chat on WhatsApp',
+  channels: [
+    { label: 'WhatsApp', value: WHATSAPP_NUMBER, note: 'French, English, Spanish, Arabic' },
+    { label: 'Phone', value: PHONE_NUMBER, note: '' },
+    { label: 'WeChat', value: WECHAT_ID, note: '' },
+    { label: 'Email', value: CONTACT_EMAIL, note: '' },
+  ],
   reassurance: `A multilingual team, ${n('years.experience')} years of experience, clients across ${n('continents')} continents.`,
 };
 
@@ -257,7 +270,9 @@ export const ctaRow = {
 export const foot = {
   company: 'Melody Supply',
   tagline: 'Easy sourcing from China',
-  email: 'melodychina0505@gmail.com',
+  email: CONTACT_EMAIL,
+  whatsapp: WHATSAPP_NUMBER,
+  wechat: WECHAT_ID,
   socials: [
     { label: 'Facebook', href: 'https://www.facebook.com/share/15Li2a5L29V/?mibextid=wwXIfr' },
     { label: 'Instagram', href: 'https://www.instagram.com/melodie_fournisseur_chinois' },

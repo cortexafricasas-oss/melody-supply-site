@@ -2,7 +2,6 @@
  * Motion au defilement, sans bibliotheque.
  * - revelation en cascade des elements marques [data-reveal]
  * - parallaxe douce sur le heros
- * - barre de progression de lecture
  * - barre de navigation qui se condense
  * Tout est desactive si l'utilisateur demande moins d'animation.
  */
@@ -40,9 +39,8 @@ export function startMotion(): () => void {
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => io.observe(el));
   cleanups.push(() => io.disconnect());
 
-  // 2. Parallaxe du heros + 3. progression de lecture + 4. nav condensee
+  // 2. Parallaxe du heros + 3. nav condensee
   const media = document.querySelector<HTMLElement>('.hero__media');
-  const bar = document.querySelector<HTMLElement>('.progress');
   const nav = document.querySelector<HTMLElement>('.nav');
   let ticking = false;
 
@@ -53,10 +51,6 @@ export function startMotion(): () => void {
       const y = window.scrollY;
       if (media && y < window.innerHeight * 1.2) {
         media.style.transform = `translate3d(0, ${y * 0.18}px, 0) scale(1.06)`;
-      }
-      if (bar) {
-        const h = document.documentElement.scrollHeight - window.innerHeight;
-        bar.style.transform = `scaleX(${h > 0 ? Math.min(y / h, 1) : 0})`;
       }
       if (nav) nav.classList.toggle('is-stuck', y > 40);
       ticking = false;
