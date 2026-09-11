@@ -62,6 +62,7 @@ export const hero = {
     { v: `${n('categories.count')}`, l: 'product categories' },
     { v: `${n('years.experience')} yrs`, l: 'in the Chinese supply chain' },
     { v: `${n('warehouse.sqm')} sqm`, l: 'of own warehousing' },
+    { v: `< ${n('process.weeks')} weeks`, l: 'concept to shipping' },
   ],
   cta: 'Start your store',
   ctaGhost: 'Discover the products',
@@ -132,12 +133,47 @@ export const sourcing = {
   },
 };
 
+export const objections = {
+  eyebrow: 'What stops most buyers',
+  title: `${n('objections.count')} reasons people hesitate. Answered.`,
+  lede:
+    'These are the objections we hear before every first order. None of them ' +
+    'is a reason not to start.',
+  items: [
+    {
+      h: 'Unreliable suppliers',
+      p: `Uneven quality, narrow ranges. We work with thousands of Chinese factories: ${n('categories.count')} categories and ${n('catalog.items')}+ consumer products, inspected in-house before packing.`,
+    },
+    {
+      h: 'Sourcing eats your time',
+      p: 'No more endless back-and-forth with a dozen suppliers. You pick your products directly on our online platform.',
+    },
+    {
+      h: 'You have never done this',
+      p: 'We handle the store organisation, the shelf layout, the promotional zones and the assortment for you. First-time owners are most of our clients.',
+    },
+    {
+      h: 'Stock pressure',
+      p: 'Buy small quantities, mix products at low MOQ, test your market and reorder on demand. You are not locked into a pallet of one item.',
+    },
+    {
+      h: 'Shipping is complicated',
+      p: 'We group and pack your multi-category order for optimised container loading, and assist with export paperwork.',
+    },
+    {
+      h: 'The process is unclear',
+      p: `A standardised ${n('process.steps')}-step procedure takes you from concept to shipping in under ${n('process.weeks')} weeks, with one dedicated team.`,
+    },
+  ],
+};
+
 export const process = {
   eyebrow: 'Opening a store',
   title: `${n('process.steps')} steps, from location to opening.`,
   lede:
-    'A standardised process: clear, fast and transparent. One dedicated team ' +
-    'follows you from the site plan to the goods arriving at your warehouse.',
+    `A standardised process: clear, fast and transparent. From concept to ` +
+    `shipping in under ${n('process.weeks')} weeks, with one dedicated team from the ` +
+    'site plan to the goods arriving at your warehouse.',
   steps: [
     { h: 'Site validation', p: 'You pick a location in your country and send us the floor plan and photos of the surroundings.' },
     { h: 'Client account', p: 'After a deposit - fully deductible from the final order - we open your platform access and assign your team.' },

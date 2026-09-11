@@ -139,6 +139,20 @@
       "value": 50000,
       "unit": "USD",
       "source": "tranche proposee dans le formulaire de devis (choix de conception, 11/09/2026)"
+    },
+    {
+      "id": "process.weeks",
+      "label": "Duree du processus, du concept a l'expedition",
+      "value": 2,
+      "unit": "semaines (moins de)",
+      "source": "melodychinasupply.com, page Brochure de presentation, scan du 11/09/2026"
+    },
+    {
+      "id": "objections.count",
+      "label": "Difficultes traitees",
+      "value": 6,
+      "unit": "difficultes",
+      "source": "melodychinasupply.com, page Brochure de presentation, scan du 11/09/2026"
     }
   ],
   "derived": [],
