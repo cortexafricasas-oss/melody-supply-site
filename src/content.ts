@@ -29,9 +29,9 @@ export const FX_NOTE =
 export const QUOTE_FORM = 'https://melodychinasupply.com/?page_id=789';
 
 /** WhatsApp : le numero annonce sur le site, multilingue. */
-export const WHATSAPP_NUMBER = '+86 131 8895 9052';
+export const WHATSAPP_NUMBER = '+86 193 1668 2193';
 export const WHATSAPP_LINK =
-  'https://wa.me/8613188959052?text=' +
+  'https://wa.me/8619316682193?text=' +
   encodeURIComponent('Hello Melody Supply, I would like a quote for my store.');
 
 export const PHONE_NUMBER = '+86 175 5135 9860';
@@ -344,7 +344,7 @@ export const foot = {
     { icon: 'mail', label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, note: '' },
   ],
   socials: [
-    { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/share/15Li2a5L29V/?mibextid=wwXIfr' },
+    { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/share/1DRravHfoA/?mibextid=wwXIfr' },
     { icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/melodie_fournisseur_chinois' },
     { icon: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@mlodie.fournisseur' },
     { icon: 'whatsapp', label: 'WhatsApp', href: WHATSAPP_LINK },

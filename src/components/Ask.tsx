@@ -132,6 +132,38 @@ export function Ask() {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight, behavior: 'smooth' });
   }, [msgs, busy, open]);
 
+  // Le clavier d'iOS reduit le viewport visuel sans toucher a la fenetre : un
+  // panneau en position fixe se retrouve donc dessous. On mesure la hauteur
+  // prise par le clavier et on remonte le panneau d'autant.
+  useEffect(() => {
+    const vv = window.visualViewport;
+    const root = document.documentElement;
+    const clear = () => {
+      root.style.removeProperty('--ask-kb');
+      root.style.removeProperty('--ask-vh');
+    };
+    if (!vv || !open) {
+      clear();
+      return;
+    }
+    const apply = () => {
+      // Un pincement pour zoomer retrecit lui aussi le viewport : on ne bouge
+      // rien tant que l'echelle n'est pas a 1.
+      const keyboard =
+        vv.scale > 1.01 ? 0 : Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      root.style.setProperty('--ask-kb', `${Math.round(keyboard)}px`);
+      root.style.setProperty('--ask-vh', `${Math.round(vv.height)}px`);
+    };
+    apply();
+    vv.addEventListener('resize', apply);
+    vv.addEventListener('scroll', apply);
+    return () => {
+      vv.removeEventListener('resize', apply);
+      vv.removeEventListener('scroll', apply);
+      clear();
+    };
+  }, [open]);
+
   if (!BOT_URL) return null;
 
   function openPanel() {
@@ -270,7 +302,7 @@ export function Ask() {
             value={q}
             maxLength={MAX}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Ask about MOQ, shipping, opening a store…"
+            placeholder="MOQ, shipping, store setup…"
             autoComplete="off"
           />
           <button type="submit" disabled={busy || !q.trim()} aria-label="Send">
