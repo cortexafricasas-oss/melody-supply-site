@@ -12,7 +12,9 @@ const usd = (id: string) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    maximumFractionDigits: fact(id) < 10 ? 2 : 0,
+    // En dessous de 100, on garde les centimes : arrondir 11,62 a 12 ferait
+    // afficher un chiffre absent du registre.
+    maximumFractionDigits: fact(id) < 100 ? 2 : 0,
   }).format(fact(id));
 
 /** Mention unique : les prix de reference sont en euros, l'USD est une conversion. */
@@ -42,6 +44,7 @@ export const nav = {
   logoAlt: 'Melody Supply - easy sourcing from China',
   links: [
     { label: 'Products', href: '#products' },
+    { label: 'Catalogue', href: '#catalogue' },
     { label: 'Sourcing', href: '#sourcing' },
     { label: 'Process', href: '#process' },
     { label: 'Services', href: '#services' },
@@ -109,6 +112,39 @@ export const products = {
     'Multi-category consolidation',
     'Freight assistance',
   ],
+};
+
+export const catalogue = {
+  eyebrow: 'Browse before you ask',
+  title: 'Two live catalogues. Open access.',
+  lede:
+    'Look through the actual products before contacting us. No account needed — ' +
+    'and none can be created yet, so browsing is open to everyone.',
+  lines: [
+    {
+      h: 'One-dollar store line',
+      price: `approx. ${usd('unit.cost.min.usd')} – ${usd('unit.cost.max.usd')} per item`,
+      p: 'Everyday items for one-price and variety stores.',
+      href: 'https://ww.zfxh688.com',
+      cta: 'Open the catalogue',
+    },
+    {
+      h: 'Supermarket line',
+      price: `approx. ${usd('super.price.min.usd')} – ${usd('super.price.max.usd')} per item`,
+      p: 'A wider range at mixed price points, for supermarkets and larger formats.',
+      href: 'https://hwmy.taohuo999.com',
+      cta: 'Open the catalogue',
+    },
+  ],
+  tips: [
+    'For French, click the globe icon at the top left of the catalogue page.',
+    'Pick a category and keep going down the tree to reach the products.',
+    'The minimum quantity per item is shown at the bottom of each product, under its specification.',
+    `Total order minimum: approx. ${usd('order.minimum.usd')}, shipping excluded. Mix items freely in small quantities.`,
+  ],
+  note:
+    'Accounts are not open yet — browse the catalogues, then send us your list ' +
+    'or ask us anything.',
 };
 
 export const sourcing = {

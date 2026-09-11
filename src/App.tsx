@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
-  WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, objections, foot, fact,
+  WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, catalogue, products, sourcing, process, services, why, model, faq, contact, objections, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
@@ -166,6 +166,35 @@ export default function App() {
             {products.included.map((i) => <li key={i}>{i}</li>)}
           </ul>
           <p className="fxnote">{FX_NOTE}</p>
+        </section>
+
+        {/* Catalogues en ligne */}
+        <section className="light" id="catalogue">
+          <div className="section wrap">
+            <p className="eyebrow">{catalogue.eyebrow}</p>
+            <h2 className="section__title" data-reveal>{catalogue.title}</h2>
+            <p className="section__lede" data-reveal>{catalogue.lede}</p>
+
+            <div className="cards cards--2">
+              {catalogue.lines.map((l) => (
+                <div className="card cat" data-reveal key={l.h}>
+                  <h3>{l.h}</h3>
+                  <p className="cat__price">{l.price}</p>
+                  <p>{l.p}</p>
+                  <p className="cat__cta">
+                    <a className="btn btn--sm" href={l.href} target="_blank" rel="noopener noreferrer">
+                      {l.cta}
+                    </a>
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <ul className="tips">
+              {catalogue.tips.map((t) => <li key={t}>{t}</li>)}
+            </ul>
+            <p className="cat__note">{catalogue.note}</p>
+          </div>
         </section>
 
         {/* Sourcing */}
