@@ -137,7 +137,6 @@ export const catalogue = {
     },
   ],
   tips: [
-    'For French, click the globe icon at the top left of the catalogue page.',
     'Pick a category and keep going down the tree to reach the products.',
     'The minimum quantity per item is shown at the bottom of each product, under its specification.',
     `Total order minimum: approx. ${usd('order.minimum.usd')}, shipping excluded. Mix items freely in small quantities.`,

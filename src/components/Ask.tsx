@@ -20,12 +20,57 @@ const MAX = 500;
 const TEASER_DELAY = 7000;     // 7 s : dans la fenetre 5-10 s
 const TEASER_TIMEOUT = 14000;  // l'accroche se retire seule
 const SEEN_KEY = 'melody.teaser.seen';
+const BUBBLE_GAP = 450;  // pause entre deux bulles, comme une frappe naturelle
 
 const TEASER_TEXT = 'Hi! Opening a store or looking for products? Ask me anything.';
 const WELCOME_TEXT =
   'Hi! I can answer about products, minimum order, shipping or opening a store.';
 
 type Msg = { role: 'you' | 'bot'; text: string };
+
+/** Transforme les URL d'une reponse en liens cliquables. Le reste est rendu tel
+ *  quel : jamais de HTML injecte, seulement du texte et des <a>. */
+function withLinks(text: string) {
+  const parts = text.split(/(https?:\/\/[^\s<>()]+)/g);
+  return parts.map((part, i) =>
+    /^https?:\/\//.test(part) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer">
+        {part.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+      </a>
+    ) : (
+      part
+    ),
+  );
+}
+
+/** Decoupe une reponse en bulles lisibles plutot qu'un seul pave.
+ *  On coupe sur les paragraphes ; une puce reste avec son intitule. */
+function toBubbles(text: string): string[] {
+  const blocks = text
+    .split(/\n{2,}/)
+    .map((b) => b.trim())
+    .filter(Boolean);
+
+  const out: string[] = [];
+  for (const block of blocks) {
+    // Un bloc trop long se recoupe sur les phrases.
+    if (block.length > 320 && !block.includes('\n')) {
+      const sentences = block.match(/[^.!?]+[.!?]+(?:\s|$)/g) ?? [block];
+      let buf = '';
+      for (const sentence of sentences) {
+        if ((buf + sentence).length > 320 && buf) {
+          out.push(buf.trim());
+          buf = '';
+        }
+        buf += sentence;
+      }
+      if (buf.trim()) out.push(buf.trim());
+    } else {
+      out.push(block);
+    }
+  }
+  return out.length ? out : [text];
+}
 
 function alreadySeen(): boolean {
   try {
@@ -106,16 +151,16 @@ export function Ask() {
         body: JSON.stringify({ question }),
       });
       const data = (await res.json()) as { answer?: string; error?: string };
-      setMsgs((m) => [
-        ...m,
-        {
-          role: 'bot',
-          text:
-            data.answer ??
-            data.error ??
-            'Something went wrong. Please email melodychina0505@gmail.com.',
-        },
-      ]);
+      const full =
+        data.answer ??
+        data.error ??
+        'Something went wrong. Please email melodychina0505@gmail.com.';
+
+      const bubbles = toBubbles(full);
+      for (let i = 0; i < bubbles.length; i += 1) {
+        if (i > 0) await new Promise((r) => setTimeout(r, BUBBLE_GAP));
+        setMsgs((m) => [...m, { role: 'bot', text: bubbles[i] }]);
+      }
     } catch {
       setMsgs((m) => [
         ...m,
@@ -190,7 +235,7 @@ export function Ask() {
         <div className="ask__log" ref={logRef} aria-live="polite">
           {msgs.map((m, i) => (
             <p key={i} className={m.role === 'you' ? 'ask__you' : 'ask__bot'}>
-              {m.text}
+              {m.role === 'bot' ? withLinks(m.text) : m.text}
             </p>
           ))}
           {busy && (
