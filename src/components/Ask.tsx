@@ -22,11 +22,27 @@ const TEASER_TIMEOUT = 14000;  // l'accroche se retire seule
 const SEEN_KEY = 'melody.teaser.seen';
 const BUBBLE_GAP = 450;  // pause entre deux bulles, comme une frappe naturelle
 
-const TEASER_TEXT = 'Hi! Opening a store or looking for products? Ask me anything.';
+const TEASER_TEXT = 'Opening a store or placing a new order? I can walk you through it.';
 const WELCOME_TEXT =
-  'Hi! I can answer about products, minimum order, shipping or opening a store.';
+  'Welcome. Tell me what you are working on — a new store, a restock, or specific ' +
+  'products — and I will tell you exactly how we handle it.';
 
 type Msg = { role: 'you' | 'bot'; text: string };
+type Turn = { role: 'user' | 'assistant'; content: string };
+
+/** Le fil renvoye au serveur. Sans lui, l'assistant redemande a chaque message
+ *  ce que le visiteur vient de dire : impossible de qualifier une affaire.
+ *  Une reponse etant affichee en plusieurs bulles, on la recolle d'abord. */
+function toHistory(msgs: Msg[]): Turn[] {
+  const out: Turn[] = [];
+  for (const m of msgs) {
+    const role: Turn['role'] = m.role === 'you' ? 'user' : 'assistant';
+    const last = out[out.length - 1];
+    if (last && last.role === role) last.content += `\n\n${m.text}`;
+    else out.push({ role, content: m.text });
+  }
+  return out.slice(-10);
+}
 
 /** Transforme les URL d'une reponse en liens cliquables. Le reste est rendu tel
  *  quel : jamais de HTML injecte, seulement du texte et des <a>. */
@@ -140,6 +156,7 @@ export function Ask() {
     const question = q.trim();
     if (!url || !question || busy) return;
 
+    const history = toHistory(msgs);
     setMsgs((m) => [...m, { role: 'you', text: question }]);
     setQ('');
     setBusy(true);
@@ -148,7 +165,7 @@ export function Ask() {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, history }),
       });
       const data = (await res.json()) as { answer?: string; error?: string };
       const full =
