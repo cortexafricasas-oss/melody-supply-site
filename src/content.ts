@@ -294,15 +294,6 @@ export const contact = {
   reassurance: `A multilingual team, ${n('years.experience')} years of experience, clients across ${n('continents')} continents.`,
 };
 
-export const ctaRow = {
-  title: 'Three ways to start.',
-  items: [
-    { h: 'Open your store', p: 'Full setup: assortment, layout, custom shelving and equipment, shipped together.' },
-    { h: 'Order our products', p: `Buy from the catalogue across ${n('categories.count')} categories, mixed freely in one container.` },
-    { h: 'Product sourcing', p: 'Looking for something outside the catalogue? We find the factory and negotiate for you.' },
-  ],
-};
-
 export const foot = {
   company: 'Melody Supply',
   tagline: 'Easy sourcing from China',

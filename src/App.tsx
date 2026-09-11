@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
-  WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, ctaRow, objections, foot, fact,
+  WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, objections, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
@@ -270,20 +270,6 @@ export default function App() {
                 </details>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Les trois actions recurrentes du site d'origine */}
-        <section className="section wrap" id="start">
-          <h2 className="section__title" data-reveal>{ctaRow.title}</h2>
-          <div className="cards cards--3">
-            {ctaRow.items.map((c) => (
-              <div className="card" data-reveal key={c.h}>
-                <h3>{c.h}</h3>
-                <p>{c.p}</p>
-                <p><a className="btn btn--sm" href="#contact">{c.h}</a></p>
-              </div>
-            ))}
           </div>
         </section>
 
