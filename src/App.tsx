@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
-  WECHAT_ID, CONTACT_EMAIL, FX_NOTE, nav, hero, catalogue, products, sourcing, process, services, why, model, faq, contact, objections, foot, fact,
+  WECHAT_ID, CONTACT_EMAIL, nav, hero, catalogue, products, sourcing, process, services, why, model, faq, contact, objections, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
@@ -166,7 +166,6 @@ export default function App() {
           <ul className="chips">
             {products.included.map((i) => <li key={i}>{i}</li>)}
           </ul>
-          <p className="fxnote">{FX_NOTE}</p>
         </section>
 
         {/* Catalogues en ligne */}

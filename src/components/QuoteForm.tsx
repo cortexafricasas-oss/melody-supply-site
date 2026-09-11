@@ -157,7 +157,7 @@ export function QuoteForm() {
         </label>
 
         <label>
-          <span>Approx. budget (shipping excluded)</span>
+          <span>Budget range (shipping excluded)</span>
           <select name="budget" defaultValue="">
             <option value="">Choose…</option>
             {BUDGETS.map((b) => <option key={b}>{b}</option>)}

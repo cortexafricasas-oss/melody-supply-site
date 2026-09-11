@@ -17,12 +17,6 @@ const usd = (id: string) =>
     maximumFractionDigits: fact(id) < 100 ? 2 : 0,
   }).format(fact(id));
 
-/** Mention unique : les prix de reference sont en euros, l'USD est une conversion. */
-export const FX_NOTE =
-  `USD figures are converted from euro list prices at ${fact('fx.eur.usd')} ` +
-  '(rate of 10 September 2026) and move with the exchange rate. ' +
-  'Euro prices are the contractual reference.';
-
 /** Le formulaire de devis reste celui du site d'origine (WPForms) : il collecte
  *  pays, objectif, budget, local et superficie. Un site statique ne peut pas
  *  recevoir de soumission ; on y renvoie plutot que d'en promettre un faux. */
@@ -75,9 +69,9 @@ export const products = {
   eyebrow: 'One-stop supply',
   title: `${n('categories.count')} categories. One container.`,
   lede:
-    `Two product lines: a one-dollar line sourced between approx. ${usd('unit.cost.min.usd')} and ` +
+    `Two product lines: a one-dollar line sourced between ${usd('unit.cost.min.usd')} and ` +
     `${usd('unit.cost.max.usd')} per unit, and a wider line at mixed price points. Mix freely ` +
-    `across categories - the only condition is a total order of approx. ${usd('order.minimum.usd')}, ` +
+    `across categories - the only condition is a total order of ${usd('order.minimum.usd')}, ` +
     'shipping excluded.',
   categories: [
     'Bathroom', 'Kitchen', 'Toys', 'Beauty', 'Stationery', 'Jewelry',
@@ -123,14 +117,14 @@ export const catalogue = {
   lines: [
     {
       h: 'One-dollar store line',
-      price: `approx. ${usd('unit.cost.min.usd')} – ${usd('unit.cost.max.usd')} per item`,
+      price: `${usd('unit.cost.min.usd')} – ${usd('unit.cost.max.usd')} per item`,
       p: 'Everyday items for one-price and variety stores.',
       href: 'https://ww.zfxh688.com',
       cta: 'Open the catalog',
     },
     {
       h: 'Supermarket line',
-      price: `approx. ${usd('super.price.min.usd')} – ${usd('super.price.max.usd')} per item`,
+      price: `${usd('super.price.min.usd')} – ${usd('super.price.max.usd')} per item`,
       p: 'A wider range at mixed price points, for supermarkets and larger formats.',
       href: 'https://hwmy.taohuo999.com',
       cta: 'Open the catalog',
@@ -139,7 +133,7 @@ export const catalogue = {
   tips: [
     'Pick a category and keep going down the tree to reach the products.',
     'The minimum quantity per item is shown at the bottom of each product, under its specification.',
-    `Total order minimum: approx. ${usd('order.minimum.usd')}, shipping excluded. Mix items freely in small quantities.`,
+    `Total order minimum: ${usd('order.minimum.usd')}, shipping excluded. Mix items freely in small quantities.`,
   ],
   note:
     'Accounts are not open yet — browse the catalogs, then send us your list ' +
@@ -288,7 +282,7 @@ export const faq = {
   items: [
     {
       q: 'What is the minimum order?',
-      a: `Approx. ${usd('order.minimum.usd')} in goods, shipping excluded. Within that, mix any items and any categories freely - there is no per-item minimum.`,
+      a: `${usd('order.minimum.usd')} in goods, shipping excluded. Within that, mix any items and any categories freely. Each product carries its own minimum quantity, shown under its specification in the catalog.`,
     },
     {
       q: 'How does shipping work?',
