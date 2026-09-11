@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  CONTACT_MAIL, nav, hero, products, sourcing, process, services, why, model, faq, contact, foot, fact,
+  CONTACT_MAIL, FX_NOTE, nav, hero, products, sourcing, process, services, why, model, faq, contact, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
@@ -160,6 +160,7 @@ export default function App() {
           <ul className="chips">
             {products.included.map((i) => <li key={i}>{i}</li>)}
           </ul>
+          <p className="fxnote">{FX_NOTE}</p>
         </section>
 
         {/* Sourcing */}

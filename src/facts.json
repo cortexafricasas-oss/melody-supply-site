@@ -43,13 +43,6 @@
       "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Étapes à suivre"
     },
     {
-      "id": "order.minimum",
-      "label": "Minimum de commande hors transport",
-      "value": 3300,
-      "unit": "EUR",
-      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
-    },
-    {
       "id": "layout.minimum.sqm",
       "label": "Surface à partir de laquelle le plan 2D est offert",
       "value": 100,
@@ -85,32 +78,46 @@
       "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Brochure"
     },
     {
-      "id": "unit.cost.min",
+      "id": "order.minimum.usd",
+      "label": "Minimum de commande hors transport",
+      "value": 3830,
+      "unit": "USD",
+      "source": "3 300 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+    },
+    {
+      "id": "unit.cost.min.usd",
       "label": "Prix d'achat unitaire le plus bas",
-      "value": 0.2,
-      "unit": "EUR",
-      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+      "value": 0.23,
+      "unit": "USD",
+      "source": "0,20 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
     },
     {
-      "id": "unit.cost.max",
-      "label": "Prix d'achat unitaire haut de la chaîne 1 €",
-      "value": 0.3,
-      "unit": "EUR",
-      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Produits"
+      "id": "unit.cost.max.usd",
+      "label": "Prix d'achat unitaire haut",
+      "value": 0.35,
+      "unit": "USD",
+      "source": "0,30 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
     },
     {
-      "id": "retail.price.min",
+      "id": "retail.price.min.usd",
       "label": "Prix de vente conseillé bas",
-      "value": 1,
-      "unit": "EUR",
-      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Brochure"
+      "value": 1.16,
+      "unit": "USD",
+      "source": "1 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
     },
     {
-      "id": "retail.price.max",
+      "id": "retail.price.max.usd",
       "label": "Prix de vente conseillé haut",
-      "value": 2,
-      "unit": "EUR",
-      "source": "melodychinasupply.com, scan complet des 7 pages le 11/09/2026 — page Brochure"
+      "value": 2.32,
+      "unit": "USD",
+      "source": "2 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+    },
+    {
+      "id": "fx.eur.usd",
+      "label": "Taux EUR vers USD retenu",
+      "value": 1.1616,
+      "unit": "USD/EUR",
+      "source": "frankfurter.app et open.er-api.com, relevé le 10/09/2026"
     }
   ],
   "derived": [],
@@ -120,5 +127,7 @@
     6,
     2026
   ],
-  "ignore_patterns": []
+  "ignore_patterns": [
+    "\\d{1,2}\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{4}"
+  ]
 }

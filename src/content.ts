@@ -8,12 +8,18 @@ export function fact(id: string): number {
 }
 
 const n = (id: string) => new Intl.NumberFormat('en-US').format(fact(id));
-const eur = (id: string) =>
+const usd = (id: string) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'EUR',
+    currency: 'USD',
     maximumFractionDigits: fact(id) < 10 ? 2 : 0,
   }).format(fact(id));
+
+/** Mention unique : les prix de reference sont en euros, l'USD est une conversion. */
+export const FX_NOTE =
+  `USD figures are converted from euro list prices at ${fact('fx.eur.usd')} ` +
+  '(rate of 10 September 2026) and move with the exchange rate. ' +
+  'Euro prices are the contractual reference.';
 
 export const CONTACT_MAIL =
   'mailto:melodychina0505@gmail.com' +
@@ -59,9 +65,9 @@ export const products = {
   eyebrow: 'One-stop supply',
   title: `${n('categories.count')} categories. One container.`,
   lede:
-    `Two product lines: a one-euro line sourced between ${eur('unit.cost.min')} and ` +
-    `${eur('unit.cost.max')} per unit, and a wider line at mixed price points. Mix freely ` +
-    `across categories - the only condition is a total order of ${eur('order.minimum')}, ` +
+    `Two product lines: a one-dollar line sourced between approx. ${usd('unit.cost.min.usd')} and ` +
+    `${usd('unit.cost.max.usd')} per unit, and a wider line at mixed price points. Mix freely ` +
+    `across categories - the only condition is a total order of approx. ${usd('order.minimum.usd')}, ` +
     'shipping excluded.',
   categories: [
     'Bathroom', 'Kitchen', 'Toys', 'Beauty', 'Stationery', 'Jewellery',
@@ -73,7 +79,7 @@ export const products = {
   points: [
     {
       h: 'Ultra-flexible MOQ',
-      p: `Order any item in small quantities and build your own mix. One condition: ${eur('order.minimum')} total order value, shipping excluded.`,
+      p: `Order any item in small quantities and build your own mix. One condition: ${usd('order.minimum.usd')} total order value, shipping excluded.`,
     },
     {
       h: 'Real stock, fast dispatch',
@@ -180,13 +186,13 @@ export const why = {
 
 export const model = {
   eyebrow: 'The format',
-  title: 'Why one-euro stores keep winning.',
+  title: 'Why dollar stores keep winning.',
   lede:
     'In an uncertain economy, low-price retail wins on a simple promise: small ' +
     'prices, useful products, a pleasant store.',
   items: [
     { h: 'Modern, attractive design', p: 'Bright, clear stores that encourage impulse buying and a pleasant visit.' },
-    { h: 'Unbeatable prices', p: `Everything between ${eur('retail.price.min')} and ${eur('retail.price.max')}, which keeps buying simple and margins high.` },
+    { h: 'Unbeatable prices', p: `Everything between ${usd('retail.price.min.usd')} and ${usd('retail.price.max.usd')}, which keeps buying simple and margins high.` },
     { h: 'Everyday products', p: 'Essentials selected to meet daily needs, which is what brings customers back.' },
     { h: 'Frequent renewal', p: 'Regular new arrivals keep variety and footfall steady through the year.' },
   ],
@@ -198,7 +204,7 @@ export const faq = {
   items: [
     {
       q: 'What is the minimum order?',
-      a: `${eur('order.minimum')} in goods, shipping excluded. Within that, mix any items and any categories freely - there is no per-item minimum.`,
+      a: `Approx. ${usd('order.minimum.usd')} in goods, shipping excluded. Within that, mix any items and any categories freely - there is no per-item minimum.`,
     },
     {
       q: 'How does shipping work?',
@@ -213,8 +219,8 @@ export const faq = {
       a: 'We work directly, not through marketplaces. That is what removes the intermediate margin and lets us inspect and consolidate in-house.',
     },
     {
-      q: `Are the ${eur('unit.cost.min')} product prices real?`,
-      a: `Yes, for the one-euro product line, sourced between ${eur('unit.cost.min')} and ${eur('unit.cost.max')} per unit. The wider line sits at mixed price points.`,
+      q: `Are the ${usd('unit.cost.min.usd')} product prices real?`,
+      a: `Yes, for the one-euro product line, sourced between ${usd('unit.cost.min.usd')} and ${usd('unit.cost.max.usd')} per unit. The wider line sits at mixed price points.`,
     },
     {
       q: 'Do you supply shelving as well as goods?',

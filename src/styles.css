@@ -304,3 +304,11 @@ a { color: inherit; }
   .progress { display: none; }
   .nav { position: static; }
 }
+
+/* Note de change : la conversion USD doit etre tracable sur la page meme. */
+.fxnote {
+  margin-top: 2.5rem; max-width: 44rem;
+  font-size: var(--step--1); line-height: 1.55; color: var(--text-dim);
+  border-left: 2px solid var(--signal); padding-left: 1rem;
+}
+.light .fxnote { color: var(--ink-dim); }
