@@ -80,37 +80,37 @@
     {
       "id": "order.minimum.usd",
       "label": "Minimum de commande hors transport",
-      "value": 3830,
+      "value": 3800,
       "unit": "USD",
-      "source": "3 300 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+      "source": "Tarif dollar arrete le 11/09/2026 : conversion de 3 300 EUR au taux 1,1616 (3 833 USD), arrondi au chiffre rond inferieur le plus proche. Seuil de commande, pas un prix."
     },
     {
       "id": "unit.cost.min.usd",
       "label": "Prix d'achat unitaire le plus bas",
-      "value": 0.23,
+      "value": 0.25,
       "unit": "USD",
-      "source": "0,20 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+      "source": "Tarif dollar arrete le 11/09/2026 : conversion de 0,20 EUR (0,23 USD), arrondi au-dessus pour absorber le change."
     },
     {
       "id": "unit.cost.max.usd",
       "label": "Prix d'achat unitaire haut",
       "value": 0.35,
       "unit": "USD",
-      "source": "0,30 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+      "source": "Tarif dollar arrete le 11/09/2026 : conversion de 0,30 EUR (0,348 USD), arrondi au-dessus."
     },
     {
       "id": "retail.price.min.usd",
       "label": "Prix de vente conseillé bas",
-      "value": 1.16,
+      "value": 1.25,
       "unit": "USD",
-      "source": "1 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+      "source": "Prix de vente conseille arrete le 11/09/2026 : conversion de 1 EUR (1,16 USD), aligne sur le point de prix 1,25 $ du marche americain."
     },
     {
       "id": "retail.price.max.usd",
       "label": "Prix de vente conseillé haut",
-      "value": 2.32,
+      "value": 2.5,
       "unit": "USD",
-      "source": "2 EUR, converti de l'EUR au taux 1.1616 (frankfurter.app / open.er-api.com, 10/09/2026)"
+      "source": "Prix de vente conseille arrete le 11/09/2026 : conversion de 2 EUR (2,32 USD), arrondi au-dessus."
     },
     {
       "id": "fx.eur.usd",
@@ -157,16 +157,16 @@
     {
       "id": "super.price.min.usd",
       "label": "Prix d'achat le plus bas, gamme supermarche",
-      "value": 0.23,
+      "value": 0.25,
       "unit": "USD",
-      "source": "0,20 EUR — liens catalogues transmis par le fondateur le 11/09/2026, converti de l'EUR au taux 1.1616 (10/09/2026)"
+      "source": "Tarif dollar arrete le 11/09/2026 : conversion de 0,20 EUR (0,23 USD), arrondi au-dessus."
     },
     {
       "id": "super.price.max.usd",
       "label": "Prix d'achat le plus haut, gamme supermarche",
-      "value": 11.62,
+      "value": 12,
       "unit": "USD",
-      "source": "10 EUR — liens catalogues transmis par le fondateur le 11/09/2026, converti de l'EUR au taux 1.1616 (10/09/2026)"
+      "source": "Tarif dollar arrete le 11/09/2026 : conversion de 10 EUR (11,62 USD), arrondi au-dessus."
     },
     {
       "id": "warehouse.sqft",

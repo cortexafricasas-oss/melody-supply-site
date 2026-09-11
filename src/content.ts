@@ -8,14 +8,18 @@ export function fact(id: string): number {
 }
 
 const n = (id: string) => new Intl.NumberFormat('en-US').format(fact(id));
-const usd = (id: string) =>
-  new Intl.NumberFormat('en-US', {
+const usd = (id: string) => {
+  const v = fact(id);
+  // Les centimes n'apparaissent que s'ils existent : « $12 », jamais « $12.00 »,
+  // et « $0.25 » garde les siens.
+  const decimals = Number.isInteger(v) ? 0 : 2;
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    // En dessous de 100, on garde les centimes : arrondir 11,62 a 12 ferait
-    // afficher un chiffre absent du registre.
-    maximumFractionDigits: fact(id) < 100 ? 2 : 0,
-  }).format(fact(id));
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(v);
+};
 
 /** Le formulaire de devis reste celui du site d'origine (WPForms) : il collecte
  *  pays, objectif, budget, local et superficie. Un site statique ne peut pas
@@ -332,7 +336,7 @@ export const foot = {
     'confirmed in writing before any order. Details you send us are used only ' +
     'to answer your request.',
   reach: [
-    { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'French, English, Spanish, Arabic' },
+    { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'English, Spanish, French, Arabic' },
     { icon: 'phone', label: 'Phone', value: PHONE_NUMBER, href: PHONE_LINK, note: '' },
     { icon: 'wechat', label: 'WeChat', value: WECHAT_ID, href: '', note: '' },
     { icon: 'mail', label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, note: '' },
