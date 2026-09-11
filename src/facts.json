@@ -1,0 +1,42 @@
+{
+  "facts": [
+    {
+      "id": "years.experience",
+      "label": "Années d'expertise supply chain",
+      "value": 20,
+      "unit": "ans",
+      "source": "site melodychinasupply.com + confirmé par le fondateur le 11/09/2026"
+    },
+    {
+      "id": "catalog.items",
+      "label": "Références au catalogue",
+      "value": 30000,
+      "unit": "articles",
+      "source": "site melodychinasupply.com + confirmé par le fondateur le 11/09/2026"
+    },
+    {
+      "id": "clients.count",
+      "label": "Clients servis",
+      "value": 10000,
+      "unit": "clients",
+      "source": "site melodychinasupply.com + confirmé par le fondateur le 11/09/2026"
+    },
+    {
+      "id": "services.count",
+      "label": "Services au-delà de la fourniture",
+      "value": 5,
+      "unit": "services",
+      "source": "comptage des services listés sur le site actuel"
+    }
+  ],
+  "derived": [],
+  "allowed_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    2026
+  ],
+  "ignore_patterns": []
+}
