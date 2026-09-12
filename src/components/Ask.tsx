@@ -27,10 +27,10 @@ const TEASER_TIMEOUT = 8000;   // l'accroche se retire seule : elle flotte
 const SEEN_KEY = 'melody.teaser.seen';
 const BUBBLE_GAP = 450;  // pause entre deux bulles, comme une frappe naturelle
 
-const TEASER_TEXT = 'A question? Ask me.';
+const TEASER_TEXT = 'Planning a store? Let us talk.';
 const WELCOME_TEXT =
-  'Welcome. Tell me what you are working on — a new store, a restock, or specific ' +
-  'products — and I will tell you exactly how we handle it.';
+  "Hi. Tell me what you're building — a first store, a restock, or a product you " +
+  "can't find anywhere — and I'll tell you how we'd handle it.";
 
 type Msg = { role: 'you' | 'bot'; text: string };
 type Turn = { role: 'user' | 'assistant'; content: string };
@@ -305,7 +305,7 @@ export function Ask() {
           </span>
           <div>
             <strong>Melody Supply</strong>
-            <span>Online · Automated assistant</span>
+            <span>Online · AI assistant</span>
           </div>
         </div>
 
@@ -342,7 +342,7 @@ export function Ask() {
         </form>
 
         <p className="ask__note">
-          Automated assistant — answers from this page only, not a commercial commitment.
+          AI assistant — our team confirms prices and dates before any order.
         </p>
       </div>
     </>
