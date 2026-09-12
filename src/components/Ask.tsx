@@ -267,7 +267,7 @@ export function Ask() {
       const full =
         data.answer ??
         data.error ??
-        'Something went wrong. Please email melodychina0505@gmail.com.';
+        'Something went wrong. Please email contact@melodysupplyco.com.';
 
       const bubbles = toBubbles(full);
       for (let i = 0; i < bubbles.length; i += 1) {
@@ -282,7 +282,7 @@ export function Ask() {
     } catch {
       setMsgs((m) => [
         ...m,
-        { role: 'bot', text: 'Connection failed. Please email melodychina0505@gmail.com.' },
+        { role: 'bot', text: 'Connection failed. Please email contact@melodysupplyco.com.' },
       ]);
     } finally {
       setBusy(false);

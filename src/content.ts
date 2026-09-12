@@ -32,7 +32,7 @@ export const WHATSAPP_LINK =
   'https://wa.me/8619316682193?text=' +
   encodeURIComponent('Hello Melody Supply, I would like a quote for my store.');
 
-export const CONTACT_EMAIL = 'melodychina0505@gmail.com';
+export const CONTACT_EMAIL = 'contact@melodysupplyco.com';
 export const CONTACT_MAIL = QUOTE_FORM;
 
 export const nav = {
