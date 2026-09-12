@@ -32,9 +32,6 @@ export const WHATSAPP_LINK =
   'https://wa.me/8619316682193?text=' +
   encodeURIComponent('Hello Melody Supply, I would like a quote for my store.');
 
-export const PHONE_NUMBER = '+86 175 5135 9860';
-export const PHONE_LINK = 'tel:+8617551359860';
-export const WECHAT_ID = 'Melody_3565';
 export const CONTACT_EMAIL = 'melodychina0505@gmail.com';
 export const CONTACT_MAIL = QUOTE_FORM;
 
@@ -317,8 +314,6 @@ export const foot = {
     'to answer your request.',
   reach: [
     { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'English, Spanish, French, Arabic' },
-    { icon: 'phone', label: 'Phone', value: PHONE_NUMBER, href: PHONE_LINK, note: '' },
-    { icon: 'wechat', label: 'WeChat', value: WECHAT_ID, href: '', note: '' },
     { icon: 'mail', label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, note: '' },
   ],
   socials: [

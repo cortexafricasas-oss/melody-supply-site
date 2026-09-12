@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  WHATSAPP_LINK, WHATSAPP_NUMBER, PHONE_LINK, PHONE_NUMBER,
-  WECHAT_ID, CONTACT_EMAIL, nav, hero, catalogue, products, sourcing, process, store, faq, contact, doubts, foot, fact,
+  WHATSAPP_LINK, WHATSAPP_NUMBER, CONTACT_EMAIL, nav, hero, catalogue, products, sourcing, process, store, faq, contact, doubts, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion } from './lib/reveal';
