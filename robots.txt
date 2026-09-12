@@ -1,0 +1,6 @@
+# Melody Supply
+# Le site est une page unique : tout est ouvert a l'indexation.
+User-agent: *
+Allow: /
+
+Sitemap: https://melodysupplyco.com/sitemap.xml
