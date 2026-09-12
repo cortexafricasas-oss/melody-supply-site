@@ -860,3 +860,30 @@ a { color: inherit; }
 .form__more > summary:hover { color: var(--ink); }
 .form__more > summary:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 .form__more[open] .form__grid { margin-top: 0.5rem; }
+
+/* Apparitions au defilement.
+
+   Rien n'est masque par defaut : le selecteur exige « html.js-reveal », une
+   classe que seul le JavaScript pose, et seulement apres avoir verifie qu'il
+   peut la retirer. Sans JavaScript, sans IntersectionObserver, ou si le script
+   ne charge pas, la page s'affiche entiere. C'est ce qui manquait a la
+   premiere version : elle masquait d'abord et esperait ensuite. */
+.js-reveal [data-reveal]:not([data-revealed='true']) {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+
+[data-reveal] {
+  transition:
+    opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Double securite : meme si la classe etait posee, rien ne bouge. */
+  .js-reveal [data-reveal]:not([data-revealed='true']) {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal] { transition: none; }
+}

@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   WHATSAPP_LINK, WHATSAPP_NUMBER, CONTACT_EMAIL, nav, hero, catalogue, products, sourcing, process, store, faq, contact, doubts, foot, fact,
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
-import { startMotion } from './lib/reveal';
+import { startMotion, startReveals } from './lib/reveal';
 import { Ask } from './components/Ask';
 import { QuoteForm } from './components/QuoteForm';
 import { Icon } from './components/Icon';
@@ -58,7 +58,7 @@ function Process() {
   return (
     <ol className="route" ref={ref}>
       {process.steps.map((s, i) => (
-        <li className="step" key={s.h}>
+        <li className="step" data-reveal key={s.h}>
           <span className="step__n" aria-hidden="true">{i + 1}</span>
           <h3>{s.h}</h3>
           <p>{s.p}</p>
@@ -127,6 +127,14 @@ function Doubts() {
 }
 
 export default function App() {
+  useLayoutEffect(() => {
+    // Avant la premiere peinture : sinon les blocs apparaissent visibles, puis
+    // s'effacent pour etre reveles ensuite. Un clignotement a chaque
+    // chargement, et il se voit surtout sur un telephone lent.
+    const stopReveals = startReveals();
+    return stopReveals;
+  }, []);
+
   useEffect(() => startMotion(), []);
 
   return (
@@ -164,12 +172,12 @@ export default function App() {
       <main>
         {/* Produits */}
         <section className="section wrap" id="products">
-                    <h2 className="section__title">{products.title}</h2>
-          <p className="section__lede">{products.lede}</p>
+                    <h2 className="section__title" data-reveal>{products.title}</h2>
+          <p className="section__lede" data-reveal>{products.lede}</p>
           <Categories />
           <div className="cards cards--2">
             {products.points.map((p) => (
-              <div className="card" key={p.h}>
+              <div className="card" data-reveal key={p.h}>
                 <h3>{p.h}</h3>
                 <p>{p.p}</p>
               </div>
@@ -185,12 +193,12 @@ export default function App() {
             se servir dans les catalogues, ou nous nommer le produit. */}
         <section className="light" id="catalogue">
           <div className="section wrap">
-            <h2 className="section__title">{catalogue.title}</h2>
-            <p className="section__lede">{catalogue.lede}</p>
+            <h2 className="section__title" data-reveal>{catalogue.title}</h2>
+            <p className="section__lede" data-reveal>{catalogue.lede}</p>
 
             <div className="cards cards--2">
               {catalogue.lines.map((l) => (
-                <div className="card cat" key={l.h}>
+                <div className="card cat" data-reveal key={l.h}>
                   <h3>{l.h}</h3>
                   <p className="cat__price">{l.price}</p>
                   <p>{l.p}</p>
@@ -241,24 +249,24 @@ export default function App() {
         <section className="light" id="objections">
           <div className="section wrap">
             <p className="eyebrow">{doubts.eyebrow}</p>
-            <h2 className="section__title">{doubts.title}</h2>
-            <p className="section__lede">{doubts.lede}</p>
+            <h2 className="section__title" data-reveal>{doubts.title}</h2>
+            <p className="section__lede" data-reveal>{doubts.lede}</p>
             <Doubts />
           </div>
         </section>
 
         {/* Le processus : moment memorable */}
         <section className="section wrap" id="process">
-          <h2 className="section__title">{process.title}</h2>
-          <p className="section__lede">{process.lede}</p>
+          <h2 className="section__title" data-reveal>{process.title}</h2>
+          <p className="section__lede" data-reveal>{process.lede}</p>
           <Process />
         </section>
 
         {/* La salle de vente : preuve visuelle + ce qu'on equipe */}
         <section className="light" id="store">
           <div className="section wrap">
-            <h2 className="section__title">{store.title}</h2>
-            <p className="section__lede">{store.lede}</p>
+            <h2 className="section__title" data-reveal>{store.title}</h2>
+            <p className="section__lede" data-reveal>{store.lede}</p>
 
             <div className="shots">
               {store.shots.map((shot) => (
@@ -290,7 +298,7 @@ export default function App() {
         {/* FAQ */}
         <section className="light" id="faq">
           <div className="section wrap">
-                        <h2 className="section__title">{faq.title}</h2>
+                        <h2 className="section__title" data-reveal>{faq.title}</h2>
             <div className="faq">
               {faq.items.map((f) => (
                 <details key={f.q}>
@@ -306,8 +314,8 @@ export default function App() {
         <section className="quote" id="contact">
           <div className="section wrap">
             <p className="eyebrow">{contact.eyebrow}</p>
-            <h2 className="section__title">{contact.title}</h2>
-            <p className="section__lede">{contact.lede}</p>
+            <h2 className="section__title" data-reveal>{contact.title}</h2>
+            <p className="section__lede" data-reveal>{contact.lede}</p>
             <QuoteForm />
             <p className="quote__reassure">{contact.reassurance}</p>
           </div>
