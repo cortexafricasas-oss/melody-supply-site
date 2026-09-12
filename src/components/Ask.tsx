@@ -25,7 +25,10 @@ const MAX = 500;
 const TEASER_AT = 0.4;
 const TEASER_TIMEOUT = 8000;   // l'accroche se retire seule : elle flotte
                                // au-dessus du texte, elle doit passer vite
-const SEEN_KEY = 'melody.teaser.seen';
+// On retient que le chat a ete OUVERT, pas que l'accroche a ete VUE : un
+// onglet de telephone vit des jours, et retenir l'affichage revenait a ne
+// plus jamais relancer le visiteur.
+const OPENED_KEY = 'melody.chat.opened';
 const BUBBLE_GAP = 450;  // pause entre deux bulles, comme une frappe naturelle
 
 const TEASER_TEXT = 'Planning a store? Let us talk.';
@@ -116,17 +119,17 @@ function toBubbles(text: string): string[] {
   return out.length ? out : [text];
 }
 
-function alreadySeen(): boolean {
+function alreadyOpened(): boolean {
   try {
-    return sessionStorage.getItem(SEEN_KEY) === '1';
+    return sessionStorage.getItem(OPENED_KEY) === '1';
   } catch {
     return false;
   }
 }
 
-function markSeen(): void {
+function markOpened(): void {
   try {
-    sessionStorage.setItem(SEEN_KEY, '1');
+    sessionStorage.setItem(OPENED_KEY, '1');
   } catch {
     /* navigation privee ou stockage bloque : sans consequence */
   }
@@ -146,7 +149,7 @@ export function Ask() {
 
   // Accroche proactive : une seule fois par visite, passe 40 % de la page.
   useEffect(() => {
-    if (!BOT_URL || alreadySeen()) return;
+    if (!BOT_URL || alreadyOpened()) return;
     let hide = 0;
     const onScroll = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -154,8 +157,6 @@ export function Ask() {
       window.removeEventListener('scroll', onScroll);
       setTeaser(true);
       setUnread(true);
-      // Memorise des l'affichage : une visite, une accroche, meme sans clic.
-      markSeen();
       hide = window.setTimeout(() => setTeaser(false), TEASER_TIMEOUT);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -221,7 +222,7 @@ export function Ask() {
     setOpen(true);
     setTeaser(false);
     setUnread(false);
-    markSeen();
+    markOpened();
     // Le fil s'ouvre sur un mot d'accueil, pas sur un vide.
     setMsgs((m) => (m.length ? m : [{ role: 'bot', text: WELCOME_TEXT }]));
     window.setTimeout(() => inputRef.current?.focus(), 120);
@@ -230,7 +231,6 @@ export function Ask() {
   function dismissTeaser() {
     setTeaser(false);
     setUnread(false);
-    markSeen();
   }
 
   async function send(e: React.FormEvent) {
