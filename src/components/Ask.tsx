@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from 'react';
  * La cle DeepSeek n'est jamais ici : le site appelle une fonction serveur.
  */
 const BOT_URL = import.meta.env.VITE_BOT_URL as string | undefined;
+const QUOTE_URL = import.meta.env.VITE_QUOTE_URL as string | undefined;
 const BASE = import.meta.env.BASE_URL;
 
 const MAX = 500;
@@ -32,7 +33,29 @@ const WELCOME_TEXT =
   "Hi. Tell me what you're building — a first store, a restock, or a product you " +
   "can't find anywhere — and I'll tell you how we'd handle it.";
 
+/* Notre propre numero : si le visiteur le recopie, ce n'est pas un contact. */
+const OUR_NUMBER = '8619316682193';
+
+const EMAIL_RE = /[^\s@<>()[\]]+@[^\s@<>()[\]]+\.[a-z]{2,}/i;
+/* Un numero utile fait au moins dix chiffres. Le garde-fou evite de prendre une
+   surface, un budget ou une quantite pour un telephone. */
+const PHONE_RE = /(?<![\d$])(\+?\d[\d\s().-]{8,}\d)(?!\d)/;
+
+/** Cherche un moyen de rappeler le visiteur dans ce qu'il vient d'ecrire. */
+function findContact(text: string): { email?: string; whatsapp?: string } | null {
+  const email = text.match(EMAIL_RE)?.[0];
+  const phoneRaw = text.match(PHONE_RE)?.[0];
+  const digits = phoneRaw ? phoneRaw.replace(/\D/g, '') : '';
+  const whatsapp = digits.length >= 10 && !OUR_NUMBER.includes(digits) ? phoneRaw : undefined;
+  if (!email && !whatsapp) return null;
+  return { email, whatsapp: whatsapp?.trim() };
+}
+
 type Msg = { role: 'you' | 'bot'; text: string };
+const HANDOVER_TEXT =
+  "I've passed your details to our team along with this conversation, so you " +
+  "won't have to repeat yourself. They reply within 1 to 4 working days.";
+
 type Turn = { role: 'user' | 'assistant'; content: string };
 
 /** Le fil renvoye au serveur. Sans lui, l'assistant redemande a chaque message
@@ -114,6 +137,7 @@ export function Ask() {
   const [teaser, setTeaser] = useState(false);
   const [unread, setUnread] = useState(false);
   const [atForm, setAtForm] = useState(false);
+  const [leadSent, setLeadSent] = useState(false);
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -216,7 +240,20 @@ export function Ask() {
     if (!url || !question || busy) return;
 
     const history = toHistory(msgs);
-    setMsgs((m) => [...m, { role: 'you', text: question }]);
+    const thread: Msg[] = [...msgs, { role: 'you', text: question }];
+    setMsgs(thread);
+
+    // Le contact part des qu'il apparait, sans attendre la reponse du modele :
+    // un visiteur qui ferme l'onglet juste apres reste un prospect atteignable.
+    const contact = !leadSent && QUOTE_URL ? findContact(question) : null;
+    if (contact) {
+      setLeadSent(true);
+      fetch(QUOTE_URL as string, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: 'chat', ...contact, transcript: thread.slice(-20) }),
+      }).catch(() => undefined);
+    }
     setQ('');
     setBusy(true);
 
@@ -236,6 +273,11 @@ export function Ask() {
       for (let i = 0; i < bubbles.length; i += 1) {
         if (i > 0) await new Promise((r) => setTimeout(r, BUBBLE_GAP));
         setMsgs((m) => [...m, { role: 'bot', text: bubbles[i] }]);
+      }
+
+      if (contact) {
+        await new Promise((r) => setTimeout(r, BUBBLE_GAP));
+        setMsgs((m) => [...m, { role: 'bot', text: HANDOVER_TEXT }]);
       }
     } catch {
       setMsgs((m) => [

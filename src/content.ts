@@ -36,7 +36,7 @@ export const CONTACT_EMAIL = 'melodychina0505@gmail.com';
 export const CONTACT_MAIL = QUOTE_FORM;
 
 export const nav = {
-  logoAlt: 'Melody Supply - easy sourcing from China',
+  logoAlt: 'Melody Supply, easy sourcing from China',
   links: [
     { label: 'Products', href: '#products' },
     { label: 'Catalog', href: '#catalogue' },
@@ -71,7 +71,7 @@ export const products = {
   lede:
     `Two product lines: a one-dollar line sourced between ${usd('unit.cost.min.usd')} and ` +
     `${usd('unit.cost.max.usd')} per unit, and a wider line at mixed price points. Mix freely ` +
-    `across categories - the only condition is a total order of ${usd('order.minimum.usd')}, ` +
+    `across categories — the only condition is a total order of ${usd('order.minimum.usd')}, ` +
     'shipping excluded.',
   categories: [
     'Bathroom', 'Kitchen', 'Toys', 'Beauty', 'Stationery', 'Jewelry',
@@ -130,11 +130,11 @@ export const catalogue = {
 export const sourcing = {
   title: 'Your buying team in China.',
   lede:
-    'Name the product you need - a photo, a sample, a reference - and we find ' +
+    'Name the product you need — a photo, a sample, a reference — and we find ' +
     'the factory, negotiate at source, inspect and ship it, whether or not it ' +
     'is in our catalogs. Your purchasing office in China, without the travel.',
   items: [
-    { h: 'Reliable supplier search', p: 'We select factories on capability, quality and stability - not on a marketplace listing.' },
+    { h: 'Reliable supplier search', p: 'We select factories on capability, quality and stability — not on a marketplace listing.' },
     { h: 'Price negotiation', p: 'We negotiate directly with the factory, at source prices, with no middleman margin.' },
     { h: 'Full project management', p: 'Follow-up, inspection, consolidation and a single shipment for the whole order.' },
   ],
@@ -148,8 +148,8 @@ export const sourcing = {
   forWhom: {
     h: 'Built for',
     list: [
-      'Physical stores - discount, bazaar, dollar store',
-      'Online sellers - Amazon FBA, Shopify, Jumia, Shopee, MercadoLibre',
+      'Physical stores — discount, bazaar, dollar store',
+      'Online sellers — Amazon FBA, Shopify, Jumia, Shopee, MercadoLibre',
       'Businesses looking for new reliable suppliers',
       'Private label and own-brand development',
     ],
@@ -198,7 +198,7 @@ export const process = {
     'site plan to the goods arriving at your warehouse.',
   steps: [
     { h: 'Site validation', p: 'You pick a location in your country and send us the floor plan and photos of the surroundings.' },
-    { h: 'Client account', p: 'After a deposit - fully deductible from the final order - we open your platform access and assign your team.' },
+    { h: 'Client account', p: 'After a deposit — fully deductible from the final order — we open your platform access and assign your team.' },
     { h: 'Store design', p: 'Shelf layout and dimensions, promotional space, assortment planning, trolleys, checkouts and stock system.' },
     { h: 'Final validation', p: 'You confirm the product list, the custom shelving, the total weight and the overall volume.' },
     { h: 'Production & packing', p: 'On payment, product preparation and custom shelf manufacturing start immediately.' },
@@ -235,7 +235,7 @@ export const store = {
     },
     {
       h: 'Custom layout & floor plan',
-      p: `A 2D plan optimized for customer flow and key zones - free from ${n('layout.minimum.sqft')} sq ft (${n('layout.minimum.sqm')} sqm). Detailed drawings for wall and center shelving.`,
+      p: `A 2D plan optimized for customer flow and key zones — free from ${n('layout.minimum.sqft')} sq ft (${n('layout.minimum.sqm')} sqm). Detailed drawings for wall and center shelving.`,
     },
     {
       h: 'Custom shelf manufacturing',
@@ -243,7 +243,7 @@ export const store = {
     },
     {
       h: 'Full store equipment',
-      p: 'Counters, signage frames, baskets, trolleys, checkout and stock systems - the store arrives complete.',
+      p: 'Counters, signage frames, baskets, trolleys, checkout and stock systems — the store arrives complete.',
     },
   ],
 };
@@ -309,9 +309,10 @@ export const foot = {
   tagline: 'Easy sourcing from China',
   legal: `© ${new Date().getFullYear()} Melody Supply. All rights reserved.`,
   terms:
-    'Figures shown are indicative. Prices, quantities and lead times are ' +
-    'confirmed in writing before any order. Details you send us are used only ' +
-    'to answer your request.',
+    'Unit prices are factory prices, shipping excluded. Freight, duties and ' +
+    'taxes depend on your destination and are quoted separately. Every order ' +
+    'is confirmed in writing before production. Details you send us are used ' +
+    'only to answer your request.',
   reach: [
     { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'English, Spanish, French, Arabic' },
     { icon: 'mail', label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, note: '' },
