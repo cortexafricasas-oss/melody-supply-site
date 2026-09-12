@@ -285,7 +285,7 @@ export const faq = {
     },
     {
       q: `Are the ${usd('unit.cost.min.usd')} product prices real?`,
-      a: `Yes, for the one-euro product line, sourced between ${usd('unit.cost.min.usd')} and ${usd('unit.cost.max.usd')} per unit. The wider line sits at mixed price points.`,
+      a: `Yes, for the one-dollar product line, sourced between ${usd('unit.cost.min.usd')} and ${usd('unit.cost.max.usd')} per unit. The supermarket line sits at mixed price points.`,
     },
     {
       q: 'Do you supply shelving as well as goods?',
@@ -317,10 +317,13 @@ export const foot = {
     { icon: 'whatsapp', label: 'WhatsApp', value: WHATSAPP_NUMBER, href: WHATSAPP_LINK, note: 'English, Spanish, French, Arabic' },
     { icon: 'mail', label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`, note: '' },
   ],
+  // Sans href, l'icone reste affichee mais n'ouvre rien : les comptes Instagram
+  // et TikTok s'adressent a un public francophone, le site a des detaillants
+  // americains. Y envoyer un prospect affaiblirait le positionnement.
   socials: [
     { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/share/1DRravHfoA/?mibextid=wwXIfr' },
-    { icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/melodie_fournisseur_chinois' },
-    { icon: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/@mlodie.fournisseur' },
+    { icon: 'instagram', label: 'Instagram', href: '' },
+    { icon: 'tiktok', label: 'TikTok', href: '' },
     { icon: 'whatsapp', label: 'WhatsApp', href: WHATSAPP_LINK },
   ],
 };

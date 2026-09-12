@@ -346,10 +346,19 @@ export default function App() {
           <ul className="foot__social">
             {foot.socials.map((sn) => (
               <li key={sn.label}>
-                <a href={sn.href} target="_blank" rel="noopener noreferrer"
-                   aria-label={sn.label} title={sn.label}>
-                  <Icon name={sn.icon as never} size={22} />
-                </a>
+                {/* Une icone sans destination ne doit pas etre un lien : ni au
+                    clavier, ni pour un lecteur d'ecran, qui annoncerait un lien
+                    menant nulle part. */}
+                {sn.href ? (
+                  <a href={sn.href} target="_blank" rel="noopener noreferrer"
+                     aria-label={sn.label} title={sn.label}>
+                    <Icon name={sn.icon as never} size={22} />
+                  </a>
+                ) : (
+                  <span className="foot__social-mute" aria-hidden="true" title={sn.label}>
+                    <Icon name={sn.icon as never} size={22} />
+                  </span>
+                )}
               </li>
             ))}
           </ul>

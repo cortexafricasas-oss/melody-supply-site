@@ -180,7 +180,8 @@ a { color: inherit; }
   margin: 2.25rem 0 0; padding: 0; list-style: none;
   display: flex; flex-wrap: wrap; gap: 0.6rem;
 }
-.foot__social a {
+.foot__social a,
+.foot__social .foot__social-mute {
   display: flex; align-items: center; justify-content: center;
   width: 46px; height: 46px;
   background: #2F332B; color: var(--paper);
@@ -188,6 +189,13 @@ a { color: inherit; }
 }
 .foot__social a:hover { background: var(--signal); color: var(--ink); transform: translateY(-2px); }
 .foot__social a:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+
+/* Meme forme que les autres pour que la rangee reste homogene, mais aucun
+   signal de lien : ni curseur de main, ni reaction au survol. Promettre un
+   clic qui ne fait rien irrite plus qu'une icone visiblement passive. */
+.foot__social .foot__social-mute {
+  cursor: default; opacity: 0.55; transition: none;
+}
 
 /* ---------- Menu ---------- */
 
