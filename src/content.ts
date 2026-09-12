@@ -216,15 +216,15 @@ export const store = {
   shots: [
     {
       src: 'images/store-aisle.webp',
-      alt: 'Main aisle of a variety store, gondola shelving stocked with everyday housewares',
+      alt: 'Dollar store aisle: shelving stocked with plastic basins, buckets, food storage boxes, tableware, kitchen utensils and cleaning tools',
     },
     {
       src: 'images/store-endcap.webp',
-      alt: 'Promotional end display stacked with colourful household goods',
+      alt: 'Promotional end display stacked with basins, sponge packs, household paper and storage crates',
     },
     {
       src: 'images/store-checkout.webp',
-      alt: 'Checkout counter with baskets and trolleys in a newly fitted store',
+      alt: 'Checkout counter with till, stacked shopping baskets and trolleys in a newly fitted dollar store',
     },
   ],
   caption: 'Illustrations of the store format we build.',
