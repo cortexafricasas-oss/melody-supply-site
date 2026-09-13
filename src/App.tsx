@@ -4,6 +4,7 @@ import {
 } from './content';
 import { registerFactCheck } from './lib/fact-checks';
 import { startMotion, startReveals } from './lib/reveal';
+import { mesurer } from './lib/mesure';
 import { Ask } from './components/Ask';
 import { QuoteForm } from './components/QuoteForm';
 import { Icon } from './components/Icon';
@@ -136,6 +137,11 @@ export default function App() {
   }, []);
 
   useEffect(() => startMotion(), []);
+
+  // La mesure d'audience. Sans elle, une campagne publicitaire depense
+  // sans rien apprendre — constate le 13 septembre avec 6 clics payes
+  // dont on ne savait rien.
+  useEffect(() => mesurer(), []);
 
   return (
     <>
